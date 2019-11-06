@@ -15,12 +15,12 @@ export function signInSuccess(token, user) {
   };
 }
 
-// export function signUpRequest(name, email, password) {
-//   return {
-//     type: '@auth/SIGN_UP_REQUEST',
-//     payload: { name, email, password },
-//   };
-// }
+export function signUpRequest(name, email, password) {
+  return {
+    type: '@auth/SIGN_UP_REQUEST',
+    payload: { name, email, password },
+  };
+}
 // Caso criar sessão tenha falhado. Tanto para signIn quanto para signUp.
 export function signFailure() {
   return {
