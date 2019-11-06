@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Card } from './styles';
+
+import logo from '../../assets/gympoint.svg';
 
 export default function SignIn() {
   return (
     <Container>
-      <h1>Login</h1>
+      <Card>
+        <h1>Login</h1>
+        <img src={logo} alt="gym" />
+      </Card>
     </Container>
   );
 }
