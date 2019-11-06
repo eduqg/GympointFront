@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken, lighten } from 'polished';
+import { lighten } from 'polished';
 
 export const Container = styled.div`
   background-color: #fff;
@@ -49,6 +49,7 @@ export const Profile = styled.div`
   margin-left: 24px;
   padding-left: 24px;
   text-align-last: end;
+  min-width: 200px;
 
   a {
     margin-right: 10px;
@@ -59,6 +60,6 @@ export const Profile = styled.div`
   }
 
   a.sair {
-    color: #f84e62;
+    color: #df4658;
   }
 `;
