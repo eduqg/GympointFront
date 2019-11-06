@@ -1,18 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+
+import './config/ReactotronConfig';
+
+import Routes from './routes';
+import Header from './components/Header';
+
+import history from './services/history';
+
+import { store } from './store';
 
 import GlobalStyle from './styles/global';
 
-import Header from './components/Header';
-import Routes from './routes';
-
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes />
-      <GlobalStyle />
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Header />
+        <Routes />
+        <GlobalStyle />
+        <ToastContainer />
+      </Router>
+    </Provider>
   );
 }
 

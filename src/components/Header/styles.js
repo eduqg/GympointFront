@@ -50,16 +50,19 @@ export const Profile = styled.div`
   padding-left: 24px;
   text-align-last: end;
   min-width: 200px;
+  font-size: 12px;
+  margin-right: 10px;
 
   a {
-    margin-right: 10px;
     display: block;
     margin-top: 2px;
-    font-size: 12px;
     color: #999;
   }
 
-  a.sair {
+  button {
+    font-size: 12px;
+    border: 0;
     color: #df4658;
+    background: #fff;
   }
 `;

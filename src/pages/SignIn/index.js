@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import logo from '../../assets/gympoint.svg';
 
@@ -13,13 +16,16 @@ const schema = Yup.object().shape({
 });
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+
   function handleSubmit({ email, password }) {
-    console.log(email, password);
+    dispatch(signInRequest(email, password));
   }
 
   return (
     <>
       <img src={logo} alt="logo" />
+
       <Form schema={schema} onSubmit={handleSubmit}>
         <strong>Seu E-mail</strong>
         <Input name="email" type="email" placeholder="exemplo@email.com" />
