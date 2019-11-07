@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
 import api from '../../services/api';
 
@@ -12,11 +14,17 @@ export default function Registrations() {
       const response = await api.get('registrations');
 
       setRegistrations(response.data);
-      console.tron.log(response.data);
     }
 
     loadRegistrations();
   }, []);
+
+  function formatDate(date) {
+    const formattedDate = format(parseISO(date), "'Dia' dd 'de' MMMM'", {
+      locale: pt,
+    });
+    return formattedDate;
+  }
 
   return (
     <Container>
@@ -41,10 +49,10 @@ export default function Registrations() {
             <tbody>
               {registrations.map(registration => (
                 <tr key={registration.id}>
-                  <td className="align-left">{registration.student_id}</td>
-                  <td>{registration.plan_id}</td>
-                  <td>{registration.start_date}</td>
-                  <td>{registration.end_date}</td>
+                  <td className="align-left">{registration.student.name}</td>
+                  <td>{registration.plan.title}</td>
+                  <td>{formatDate(registration.start_date)}</td>
+                  <td>{formatDate(registration.end_date)}</td>
                   <td>{registration.active ? 'Sim' : 'Não'}</td>
                   <td>
                     <Link to={`registrations/${registration.id}/edit`}>

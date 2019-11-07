@@ -24,16 +24,34 @@ export function* createRegistration({ payload }) {
       start_date,
     };
 
-    console.tron.log('Register', register);
     const response = yield call(api.post, '/registrations', register);
 
-    console.tron.log('Response', response);
     toast.success('Matrícula efetuada com sucesso.');
 
     yield put(createRegistrationSuccess(response.data));
   } catch (error) {
-    console.tron.log('Erro', error);
-    toast.error('Erro ao fazer matrícula');
+    // Catching errors axios
+    // https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253
+    // if (error.response) {
+    //   /*
+    //    * The request was made and the server responded with a
+    //    * status code that falls out of the range of 2xx
+    //    */
+    //   console.tron.log(error.response.data);
+    //   console.tron.log(error.response.status);
+    //   console.tron.log(error.response.headers);
+    // } else if (error.request) {
+    //   /*
+    //    * The request was made but no response was received, `error.request`
+    //    * is an instance of XMLHttpRequest in the browser and an instance
+    //    * of http.ClientRequest in Node.js
+    //    */
+    //   console.tron.log(error.request);
+    // } else {
+    //   // Something happened in setting up the request and triggered an Error
+    //   console.tron.log('Error', error.message);
+    // }
+    toast.error(`Erro ao fazer matrícula: ${error.response.data.error}`);
     yield put(createRegistrationFailure());
   }
 }
