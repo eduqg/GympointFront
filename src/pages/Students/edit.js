@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Input, Select } from '@rocketseat/unform';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
 
-import DatePicker from '../../components/DatePicker';
+// import DatePicker from 'react-datepicker';
 
 import {
   Container,
@@ -14,8 +14,8 @@ import {
 } from '../_layouts/create/styles';
 
 export default function StudentEdit() {
-  function handleSubmit({ name, plan, startdate }) {
-    console.tron.log(name, plan, startdate);
+  function handleSubmit({ name, plan, start_date }) {
+    console.tron.log(name, plan, start_date);
   }
 
   const options = [
@@ -51,7 +51,7 @@ export default function StudentEdit() {
               </div>
               <div>
                 <p>Data de Início</p>
-                <DatePicker name="startdate" />
+                {/* <DatePicker name="start_date" /> */}
               </div>
               <div>
                 <p>Data de Término</p>

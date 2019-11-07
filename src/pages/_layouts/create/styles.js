@@ -65,25 +65,9 @@ export const Box = styled.div`
   padding: 20px 40px;
   background-color: #fff;
   border-radius: 5px;
-  width: 100%;
-
-  input {
-    width: 100%;
-    border: 1px solid ${lighten(0.6, '#333')};
-    height: 32px;
-    border-radius: 5px;
-    color: ${lighten(0.1, '#333')};
-    text-align: left;
-  }
-`;
-
-export const InputsBelow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 16px;
 
   select {
-    width: 200px;
+    width: 100%;
     border: 1px solid ${lighten(0.6, '#333')};
     background: #fff;
     border-radius: 5px;
@@ -91,8 +75,37 @@ export const InputsBelow = styled.div`
     height: 32px;
   }
 
+  span {
+    display: inline-block;
+    color: #df4658;
+    font-weight: 8px;
+    margin-top: 10px;
+  }
+`;
+
+export const InputsBelow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  width: 100%;
+
+  select {
+    width: 100px;
+    border: 1px solid ${lighten(0.6, '#333')};
+    background: #fff;
+    border-radius: 5px;
+    color: ${lighten(0.1, '#333')};
+    height: 32px;
+  }
+
+  span {
+    display: inline-block;
+    color: #df4658;
+    font-weight: 8px;
+    margin-top: 10px;
+  }
+
   input {
-    width: 200px;
     border: 1px solid ${lighten(0.6, '#333')};
     height: 32px;
     border-radius: 5px;
