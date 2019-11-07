@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
+import api from '../../services/api';
 
 export default function Student() {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    async function loadStudents() {
+      const response = await api.get('/students');
+
+      setStudents(response.data);
+    }
+
+    loadStudents();
+  }, [students]);
+
   return (
     <Container>
       <Content>
         <Nav>
-          <strong>Gerenciar Planos</strong>
+          <strong>Gerenciar Alunos</strong>
           <Link to="/">+ Cadastrar</Link>
         </Nav>
         <Items>
@@ -22,24 +36,17 @@ export default function Student() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="align-left">name</td>
-                <td>email</td>
-                <td>idade</td>
-                <td>
-                  <Link to="/">Editar</Link>
-                  <button type="button">Apagar</button>
-                </td>
-              </tr>
-              <tr>
-                <td className="align-left">name</td>
-                <td>email</td>
-                <td>idade</td>
-                <td>
-                  <Link to="/">Editar</Link>
-                  <button type="button">Apagar</button>
-                </td>
-              </tr>
+              {students.map(student => (
+                <tr key={student.id}>
+                  <td className="align-left">{student.name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.idade}</td>
+                  <td>
+                    <Link to="/">Editar</Link>
+                    <button type="button">Apagar</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Items>
