@@ -21,7 +21,7 @@ export default function RouteWrapper({
 
   // Usuário já logado, não precisa ver signIn nem signUp
   if (signed && !isPrivate) {
-    return <Redirect to="/plans" />;
+    return <Redirect to="/students" />;
   }
   const Layout = signed ? DefaultLayout : AuthLayout;
 
