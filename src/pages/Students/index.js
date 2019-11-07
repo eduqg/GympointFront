@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
 import api from '../../services/api';
 
-export default function Student() {
+export default function Students() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
     async function loadStudents() {
-      const response = await api.get('/students');
+      const response = await api.get('students');
 
       setStudents(response.data);
     }
 
     loadStudents();
-  }, [students]);
+  }, []);
 
   return (
     <Container>
       <Content>
         <Nav>
           <strong>Gerenciar Alunos</strong>
-          <Link to="/">+ Cadastrar</Link>
+          <Link to="/students/create">+ Cadastrar</Link>
         </Nav>
         <Items>
           <table>
@@ -42,7 +42,7 @@ export default function Student() {
                   <td>{student.email}</td>
                   <td>{student.idade}</td>
                   <td>
-                    <Link to="/">Editar</Link>
+                    <Link to={`students/${student.id}/edit`}>Editar</Link>
                     <button type="button">Apagar</button>
                   </td>
                 </tr>

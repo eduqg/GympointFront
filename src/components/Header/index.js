@@ -29,7 +29,7 @@ export default function Header() {
           <NavLink to="/plans" activeStyle={{ color: '#333' }}>
             PLANOS
           </NavLink>
-          <NavLink to="/registers" activeStyle={{ color: '#333' }}>
+          <NavLink to="/registrations" activeStyle={{ color: '#333' }}>
             MATRÍCULAS
           </NavLink>
           <NavLink to="/help_orders" activeStyle={{ color: '#333' }}>
