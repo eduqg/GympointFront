@@ -62,7 +62,7 @@ export function loadAllStudentsFailure() {
   };
 }
 
-// GET ALL STUDENTS
+// DELETE STUDENT
 
 export function deleteStudentRequest(id) {
   return {

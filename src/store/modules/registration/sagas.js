@@ -10,24 +10,22 @@ import {
   createRegistrationFailure,
   updateRegistrationSuccess,
   updateRegistrationFailure,
+  loadAllRegistrationsSuccess,
+  loadAllRegistrationsFailure,
+  deleteRegistrationSuccess,
+  deleteRegistrationFailure,
 } from './actions';
 
 export function* createRegistration({ payload }) {
   try {
-    const { student_id, plan_id, start_date } = payload;
+    const { start_date } = payload;
 
     if (isBefore(start_date, setMinutes(setHours(new Date(), 0), 0))) {
       toast.error('Você não pode matricular em uma data anterior a hoje');
       return;
     }
 
-    const register = {
-      student_id,
-      plan_id,
-      start_date,
-    };
-
-    const response = yield call(api.post, '/registrations', register);
+    const response = yield call(api.post, '/registrations', payload);
 
     toast.success('Matrícula efetuada com sucesso.');
 
@@ -68,7 +66,46 @@ export function* updateRegistration({ payload }) {
   }
 }
 
+export function* deleteRegistration({ payload }) {
+  try {
+    const { id } = payload;
+    yield call(api.delete, `/registrations`, {
+      headers: { id },
+    });
+
+    yield put(deleteRegistrationSuccess(id));
+    toast.warn('Matrícula deletado.');
+    history.push('/registrations');
+  } catch (error) {
+    toast.error(`Erro ao deletar matrícula: ${error.response.data.error}`);
+    yield put(deleteRegistrationFailure());
+  }
+}
+
+export function* loadRegistrations() {
+  try {
+    console.tron.log('Chegou no saga registration');
+    const response = yield api.get('registrations');
+    console.tron.log('Response no saga registration', response.data);
+
+    if (response) {
+      yield put(loadAllRegistrationsSuccess(response.data));
+    }
+  } catch (error) {
+    if (error.response.status === 400) {
+      toast.warn('Não existem matrículas cadastradas.');
+    } else {
+      toast.error(
+        `Erro na requisição de matrículas: ${error.response.data.error}`
+      );
+    }
+    yield put(loadAllRegistrationsFailure());
+  }
+}
+
 export default all([
   takeLatest('@registration/CREATE_REGISTRATION_REQUEST', createRegistration),
   takeLatest('@registration/UPDATE_REGISTRATION_REQUEST', updateRegistration),
+  takeLatest('@registration/LOAD_ALL_REGISTRATIONS_REQUEST', loadRegistrations),
+  takeLatest('@registration/DELETE_REGISTRATION_REQUEST', deleteRegistration),
 ]);

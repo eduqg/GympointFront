@@ -17,15 +17,11 @@ import {
 
 export function* createPlan({ payload }) {
   try {
-    const { title, duration, price } = payload;
-
-    const data = { title, duration, price };
-
-    yield call(api.post, '/plans', data);
+    const response = yield call(api.post, '/plans', payload);
 
     toast.success('Plano criado com sucesso.');
 
-    yield put(createPlanSuccess(data));
+    yield put(createPlanSuccess(response.data));
 
     history.push('/plans');
   } catch (error) {

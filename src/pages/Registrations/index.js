@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
-import api from '../../services/api';
+
+import {
+  loadAllRegistrationsRequest,
+  deleteRegistrationRequest,
+} from '../../store/modules/registration/actions';
 
 export default function Registrations() {
-  const [registrations, setRegistrations] = useState([]);
+  const dispatch = useDispatch();
+  const registrations =
+    useSelector(state => state.registration.allregistrations) || [];
 
   useEffect(() => {
-    async function loadRegistrations() {
-      const response = await api.get('registrations');
-
-      setRegistrations(response.data);
-    }
-
-    loadRegistrations();
-  }, []);
+    console.tron.log('usando efeito');
+    dispatch(loadAllRegistrationsRequest());
+  }, []); // eslint-disable-line
 
   function formatDate(date) {
     const formattedDate = format(parseISO(date), "'Dia' dd 'de' MMMM'", {
       locale: pt,
     });
     return formattedDate;
+  }
+
+  function handleDelete(id) {
+    dispatch(deleteRegistrationRequest(id));
   }
 
   return (
@@ -58,7 +63,12 @@ export default function Registrations() {
                     <Link to={`registrations/${registration.id}/edit`}>
                       Editar
                     </Link>
-                    <button type="button">Apagar</button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(registration.id)}
+                    >
+                      Apagar
+                    </button>
                   </td>
                 </tr>
               ))}

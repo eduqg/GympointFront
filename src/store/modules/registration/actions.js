@@ -18,6 +18,7 @@ export function createRegistrationFailure() {
   };
 }
 
+// UPDATE
 export function updateRegistrationRequest(student_id, plan_id, start_date, id) {
   return {
     type: '@registration/UPDATE_REGISTRATION_REQUEST',
@@ -35,5 +36,48 @@ export function updateRegistrationSuccess(registration) {
 export function updateRegistrationFailure() {
   return {
     type: '@registration/UPDATE_REGISTRATION_FAILURE',
+  };
+}
+
+// GET ALL REGISTRATIONS
+
+export function loadAllRegistrationsRequest() {
+  return {
+    type: '@registration/LOAD_ALL_REGISTRATIONS_REQUEST',
+  };
+}
+
+export function loadAllRegistrationsSuccess(allregistrations) {
+  return {
+    type: '@registration/LOAD_ALL_REGISTRATIONS_SUCCESS',
+    payload: { allregistrations },
+  };
+}
+
+export function loadAllRegistrationsFailure() {
+  return {
+    type: '@registration/LOAD_ALL_REGISTRATIONS_FAILURE',
+  };
+}
+
+// DELETE REGISTRATION
+
+export function deleteRegistrationRequest(id) {
+  return {
+    type: '@registration/DELETE_REGISTRATION_REQUEST',
+    payload: { id },
+  };
+}
+
+export function deleteRegistrationSuccess(id) {
+  return {
+    type: '@registration/DELETE_REGISTRATION_SUCCESS',
+    payload: { id },
+  };
+}
+
+export function deleteRegistrationFailure() {
+  return {
+    type: '@registration/DELETE_REGISTRATION_FAILURE',
   };
 }

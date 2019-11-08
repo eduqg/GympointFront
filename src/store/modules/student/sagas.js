@@ -17,15 +17,11 @@ import {
 
 export function* createStudent({ payload }) {
   try {
-    const { name, email, idade, peso, altura } = payload;
-
-    const data = { name, email, idade, peso, altura };
-
-    yield call(api.post, '/students', data);
+    const response = yield call(api.post, '/students', payload);
 
     toast.success('Estudante criado com sucesso.');
 
-    yield put(createStudentSuccess(data));
+    yield put(createStudentSuccess(response.data));
 
     history.push('/students');
   } catch (error) {
