@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
 
-import api from '../../services/api';
+import { loadAllPlansRequest } from '../../store/modules/plans/actions';
 
 export default function Plans() {
-  const [plans, setPlans] = useState([]);
+  const dispatch = useDispatch();
+  const plans = useSelector(state => state.plan.allplans) || [];
 
   useEffect(() => {
-    async function loadPlans() {
-      const response = await api.get('plans');
-
-      setPlans(response.data);
-    }
-    loadPlans();
-  }, [plans]);
+    dispatch(loadAllPlansRequest());
+  }, []); // eslint-disable-line
 
   return (
     <Container>

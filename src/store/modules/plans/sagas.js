@@ -9,6 +9,8 @@ import {
   createPlanFailure,
   updatePlanSuccess,
   updatePlanFailure,
+  loadAllPlansSuccess,
+  loadAllPlansFailure,
 } from './actions';
 
 export function* createPlan({ payload }) {
@@ -44,7 +46,6 @@ export function* updatePlan({ payload }) {
     };
 
     const response = yield call(api.put, `/plans/${id}`, data);
-    console.tron.log('Response', response);
     toast.success('Plano atualizado com sucesso.');
 
     yield put(updatePlanSuccess(response.data));
@@ -56,4 +57,19 @@ export function* updatePlan({ payload }) {
   }
 }
 
-export default all([takeLatest('@plan/CREATE_PLAN_REQUEST', createPlan)]);
+export function* loadPlans() {
+  try {
+    const response = yield api.get('plans');
+
+    yield put(loadAllPlansSuccess(response.data));
+  } catch (error) {
+    toast.error(`Erro na requisição de planos: ${error.response.data.error}`);
+    yield put(loadAllPlansFailure());
+  }
+}
+
+export default all([
+  takeLatest('@plan/CREATE_PLAN_REQUEST', createPlan),
+  takeLatest('@plan/UPDATE_PLAN_REQUEST', updatePlan),
+  takeLatest('@plan/LOAD_ALL_PLANS_REQUEST', loadPlans),
+]);

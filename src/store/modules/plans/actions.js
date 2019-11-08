@@ -1,3 +1,4 @@
+// CREATE
 export function createPlanRequest(title, duration, price) {
   return {
     type: '@plan/CREATE_PLAN_REQUEST',
@@ -18,6 +19,7 @@ export function createPlanFailure() {
   };
 }
 
+// UPDATE
 export function updatePlanRequest(title, duration, price, id) {
   return {
     type: '@plan/UPDATE_PLAN_REQUEST',
@@ -35,5 +37,26 @@ export function updatePlanSuccess(plan) {
 export function updatePlanFailure() {
   return {
     type: '@plan/UPDATE_PLAN_FAILURE',
+  };
+}
+
+// GET ALL PLANS
+
+export function loadAllPlansRequest() {
+  return {
+    type: '@plan/LOAD_ALL_PLANS_REQUEST',
+  };
+}
+
+export function loadAllPlansSuccess(allplans) {
+  return {
+    type: '@plan/LOAD_ALL_PLANS_SUCCESS',
+    payload: { allplans },
+  };
+}
+
+export function loadAllPlansFailure() {
+  return {
+    type: '@plan/LOAD_ALL_PLANS_FAILURE',
   };
 }

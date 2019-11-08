@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
-import api from '../../services/api';
 
-import { createPlanRequest } from '../../store/modules/plans/actions';
+import { updatePlanRequest } from '../../store/modules/plans/actions';
 
 import {
   Container,
@@ -28,30 +27,21 @@ export default function PlanEdit({ match }) {
   const [planDuration, setPlanDuration] = useState(0);
   const [planPrice, setPlanPrice] = useState(0);
   const [total, setTotal] = useState(0);
-  const [currentPlan, setCurrentPlan] = useState([]);
   const { id } = match.params;
-
-  useEffect(() => {
-    let response = [];
-    async function loadPlan() {
-      response = await api.get(`/plans/${id}`);
-      setCurrentPlan(response.data[0]);
-    }
-    loadPlan();
-  }, []); //eslint-disable-line
+  const oneplan = useSelector(state => state.plan.allplans[id]);
 
   useEffect(() => {
     setTotal(planDuration * planPrice);
   }, [planDuration, planPrice]);
 
   function handleSubmit({ title, duration, price }) {
-    dispatch(createPlanRequest(title, duration, price, id));
+    dispatch(updatePlanRequest(title, duration, price, id));
   }
 
   return (
     <Container>
       <Content>
-        <Form initialData={currentPlan} schema={schema} onSubmit={handleSubmit}>
+        <Form initialData={oneplan} schema={schema} onSubmit={handleSubmit}>
           <Nav>
             <strong>Edição de Plano</strong>
             <div>
