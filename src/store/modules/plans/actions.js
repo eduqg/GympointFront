@@ -60,3 +60,25 @@ export function loadAllPlansFailure() {
     type: '@plan/LOAD_ALL_PLANS_FAILURE',
   };
 }
+
+// GET ALL PLANS
+
+export function deletePlanRequest(id) {
+  return {
+    type: '@plan/DELETE_PLAN_REQUEST',
+    payload: { id },
+  };
+}
+
+export function deletePlanSuccess(id) {
+  return {
+    type: '@plan/DELETE_PLAN_SUCCESS',
+    payload: { id },
+  };
+}
+
+export function deletePlanFailure() {
+  return {
+    type: '@plan/DELETE_PLAN_FAILURE',
+  };
+}

@@ -28,7 +28,11 @@ export default function PlanEdit({ match }) {
   const [planPrice, setPlanPrice] = useState(0);
   const [total, setTotal] = useState(0);
   const { id } = match.params;
-  const oneplan = useSelector(state => state.plan.allplans[id]);
+  const oneplan = useSelector(state => {
+    return state.plan.allplans.find(item => {
+      return item.id.toString() === id;
+    });
+  }) || { title: 'Digite um plano', duration: 1, price: 1 };
 
   useEffect(() => {
     setTotal(planDuration * planPrice);

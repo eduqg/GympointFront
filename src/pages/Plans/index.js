@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
 
-import { loadAllPlansRequest } from '../../store/modules/plans/actions';
+import {
+  loadAllPlansRequest,
+  deletePlanRequest,
+} from '../../store/modules/plans/actions';
 
 export default function Plans() {
   const dispatch = useDispatch();
@@ -12,6 +15,10 @@ export default function Plans() {
   useEffect(() => {
     dispatch(loadAllPlansRequest());
   }, []); // eslint-disable-line
+
+  function handleDelete(id) {
+    dispatch(deletePlanRequest(id));
+  }
 
   return (
     <Container>
@@ -42,7 +49,9 @@ export default function Plans() {
                   <td>{plan.price}</td>
                   <td>
                     <Link to={`/plans/${plan.id}/edit`}>Editar</Link>
-                    <button type="button">Apagar</button>
+                    <button type="button" onClick={() => handleDelete(plan.id)}>
+                      Apagar
+                    </button>
                   </td>
                 </tr>
               ))}

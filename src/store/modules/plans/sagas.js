@@ -11,11 +11,12 @@ import {
   updatePlanFailure,
   loadAllPlansSuccess,
   loadAllPlansFailure,
+  deletePlanSuccess,
+  deletePlanFailure,
 } from './actions';
 
 export function* createPlan({ payload }) {
   try {
-    console.tron.log('Chegou');
     const { title, duration, price } = payload;
 
     const data = { title, duration, price };
@@ -36,8 +37,6 @@ export function* createPlan({ payload }) {
 export function* updatePlan({ payload }) {
   try {
     const { title, duration, price, id } = payload;
-
-    console.tron.log('Payload: ', payload);
 
     const data = {
       title,
@@ -61,10 +60,33 @@ export function* loadPlans() {
   try {
     const response = yield api.get('plans');
 
-    yield put(loadAllPlansSuccess(response.data));
+    console.tron.log(response);
+    if (response) {
+      yield put(loadAllPlansSuccess(response.data));
+    }
   } catch (error) {
-    toast.error(`Erro na requisição de planos: ${error.response.data.error}`);
+    if (error.response.status === 400) {
+      toast.warn('Você não possui planos criados');
+    } else {
+      toast.error(`Erro na requisição de planos: ${error.response.data.error}`);
+    }
     yield put(loadAllPlansFailure());
+  }
+}
+
+export function* deletePlan({ payload }) {
+  try {
+    const { id } = payload;
+    yield call(api.delete, `/plans`, {
+      headers: { id },
+    });
+
+    yield put(deletePlanSuccess(id));
+    toast.warn('Plano deletado.');
+    history.push('/plans');
+  } catch (error) {
+    toast.error(`Erro ao deletar plano: ${error.response.data.error}`);
+    yield put(deletePlanFailure());
   }
 }
 
@@ -72,4 +94,5 @@ export default all([
   takeLatest('@plan/CREATE_PLAN_REQUEST', createPlan),
   takeLatest('@plan/UPDATE_PLAN_REQUEST', updatePlan),
   takeLatest('@plan/LOAD_ALL_PLANS_REQUEST', loadPlans),
+  takeLatest('@plan/DELETE_PLAN_REQUEST', deletePlan),
 ]);
