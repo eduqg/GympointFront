@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Content, Items, Nav } from '../_layouts/list/styles';
-import api from '../../services/api';
+
+import { loadAllStudentsRequest } from '../../store/modules/student/actions';
 
 export default function Students() {
-  const [students, setStudents] = useState([]);
+  const dispatch = useDispatch();
+  const students = useSelector(state => state.student.allstudents) || [];
 
   useEffect(() => {
-    async function loadStudents() {
-      const response = await api.get('students');
-
-      setStudents(response.data);
-    }
-
-    loadStudents();
-  }, []);
+    dispatch(loadAllStudentsRequest());
+  }, []); // eslint-disable-line
 
   return (
     <Container>
