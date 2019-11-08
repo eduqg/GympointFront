@@ -69,9 +69,7 @@ export function* updateRegistration({ payload }) {
 export function* deleteRegistration({ payload }) {
   try {
     const { id } = payload;
-    yield call(api.delete, `/registrations`, {
-      headers: { id },
-    });
+    yield call(api.delete, `/registrations/${id}`);
 
     yield put(deleteRegistrationSuccess(id));
     toast.warn('Matrícula deletado.');
@@ -84,9 +82,7 @@ export function* deleteRegistration({ payload }) {
 
 export function* loadRegistrations() {
   try {
-    console.tron.log('Chegou no saga registration');
     const response = yield api.get('registrations');
-    console.tron.log('Response no saga registration', response.data);
 
     if (response) {
       yield put(loadAllRegistrationsSuccess(response.data));

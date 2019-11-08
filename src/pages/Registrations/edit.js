@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Form, Select } from '@rocketseat/unform';
@@ -8,9 +8,11 @@ import DatePicker from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+
 import { updateRegistrationRequest } from '../../store/modules/registration/actions';
 
-import api from '../../services/api';
+import { loadAllPlansRequest } from '../../store/modules/plans/actions';
+import { loadAllStudentsRequest } from '../../store/modules/student/actions';
 
 import {
   Container,
@@ -28,49 +30,48 @@ const schema = Yup.object().shape({
 export default function RegistrationUpdate({ match }) {
   const dispatch = useDispatch();
   const [start_date, setStartDate] = useState(new Date());
-  const [registered, setRegistered] = useState(null);
   const { id } = match.params;
+  const plans = useSelector(state => state.plan.allplans) || [];
+  const students =
+    useSelector(state => {
+      const titledStudents = state.student.allstudents.map(s => {
+        const newTitled = {
+          id: s.id,
+          title: s.name,
+        };
+        return newTitled;
+      });
+      return titledStudents;
+    }) || [];
 
   useEffect(() => {
-    async function loadProfile() {
-      const response = await api.get(`registrations/${id}`);
-      if (response) {
-        const { start_date: start_date_effect } = response.data[0];
-        const { id: plan_id } = response.data[0].plan;
-        const { id: student_id } = response.data[0].student;
-
-        const objectLoad = {
-          start_date: start_date_effect,
-          plan_id,
-          student_id,
-        };
-        console.tron.log(objectLoad);
-        setRegistered(objectLoad);
-      }
-    }
-
-    loadProfile();
+    dispatch(loadAllPlansRequest());
+    dispatch(loadAllStudentsRequest());
   }, []);  // eslint-disable-line
+
+  const oneregistration = useSelector(state => {
+    return state.registration.allregistrations.find(item => {
+      return item.id.toString() === id;
+    });
+  }) || { student_id: '1', plan_id: '1', start_date: '10/10/2020' };
 
   function handleSubmit({ student_id, plan_id }) {
     console.tron.log('No handle submit', student_id, plan_id, start_date, id);
     dispatch(updateRegistrationRequest(student_id, plan_id, start_date, id));
   }
 
-  const options = [
-    { id: 1, title: 'ReactJS' },
-    { id: 2, title: 'NodeJS' },
-    { id: 3, title: 'React Native' },
-  ];
-
   return (
     <Container>
       <Content>
-        <Form initialData={registered} schema={schema} onSubmit={handleSubmit}>
+        <Form
+          initialData={oneregistration}
+          schema={schema}
+          onSubmit={handleSubmit}
+        >
           <Nav>
             <strong>Edição de Matrícula</strong>
             <div>
-              <Link to="/students/">
+              <Link to="/registrations/">
                 <MdChevronLeft size={24} color="#fff" />
                 Voltar
               </Link>
@@ -82,11 +83,11 @@ export default function RegistrationUpdate({ match }) {
           </Nav>
           <Box>
             <p>Aluno</p>
-            <Select name="student_id" options={options} />
+            <Select name="student_id" options={students} />
             <InputsBelow>
               <div>
                 <p>Plano</p>
-                <Select name="plan_id" options={options} />
+                <Select name="plan_id" options={plans} />
               </div>
               <div>
                 <p>Data de Início</p>
