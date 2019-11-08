@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Input, Select } from '@rocketseat/unform';
+import { Form, Input } from '@rocketseat/unform';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import * as Yup from 'yup';
 
-// import DatePicker from 'react-datepicker';
+import { updateStudentRequest } from '../../store/modules/student/actions';
 
 import {
   Container,
@@ -13,23 +15,35 @@ import {
   InputsBelow,
 } from '../_layouts/create/styles';
 
-export default function StudentEdit() {
-  function handleSubmit({ name, plan, start_date }) {
-    console.tron.log(name, plan, start_date);
+export default function StudentEdit({ match }) {
+  const dispatch = useDispatch();
+  const { id } = match.params;
+  const onestudent = useSelector(state => {
+    return state.student.allstudents.find(item => {
+      return item.id.toString() === id;
+    });
+  }) || { name: 'Nome', email: 'Email', idade: 1, peso: 1, altura: 1 };
+
+  function handleSubmit({ name, email, idade, peso, altura }) {
+    dispatch(updateStudentRequest(name, email, idade, peso, altura, id));
   }
 
-  const options = [
-    { id: 'react', title: 'ReactJS' },
-    { id: 'node', title: 'NodeJS' },
-    { id: 'rn', title: 'React Native' },
-  ];
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome é obrigatório'),
+    email: Yup.string()
+      .email()
+      .required('Email inválido'),
+    idade: Yup.number().required('É necessário selecionar uma idade.'),
+    peso: Yup.number().required('É necessário selecionar um peso.'),
+    altura: Yup.number().required('É necessário selecionar uma altura.'),
+  });
 
   return (
     <Container>
       <Content>
-        <Form onSubmit={handleSubmit}>
+        <Form initialData={onestudent} schema={schema} onSubmit={handleSubmit}>
           <Nav>
-            <strong>Edição de Aluno</strong>
+            <strong>Edição de aluno</strong>
             <div>
               <Link to="/students/">
                 <MdChevronLeft size={24} color="#fff" />
@@ -42,24 +56,22 @@ export default function StudentEdit() {
             </div>
           </Nav>
           <Box>
-            <p>Aluno</p>
+            <p>Nome Completo</p>
             <Input name="name" />
+            <p>Endereço de e-mail</p>
+            <Input name="email" />
             <InputsBelow>
               <div>
-                <p>Plano</p>
-                <Select name="plan" options={options} />
+                <p>Idade</p>
+                <Input name="idade" type="number" min="1" step="1" />
               </div>
               <div>
-                <p>Data de Início</p>
-                {/* <DatePicker name="start_date" /> */}
+                <p>Peso</p>
+                <Input name="peso" type="number" step="0.1" min="0" />
               </div>
               <div>
-                <p>Data de Término</p>
-                <input name="enddate" value="10/05/2019" disabled />
-              </div>
-              <div>
-                <p>Valor Final</p>
-                <input name="price" value="R$ 990,00" disabled />
+                <p>Altura</p>
+                <Input name="altura" type="number" step="0.01" min="0" />
               </div>
             </InputsBelow>
           </Box>

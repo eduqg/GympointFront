@@ -10,7 +10,10 @@ import {
   Nav,
   BoxIcon,
 } from '../_layouts/list/styles';
-import { loadAllStudentsRequest } from '../../store/modules/student/actions';
+import {
+  loadAllStudentsRequest,
+  deleteStudentRequest,
+} from '../../store/modules/student/actions';
 
 export default function Students() {
   const dispatch = useDispatch();
@@ -26,6 +29,10 @@ export default function Students() {
       dispatch(loadAllStudentsRequest(search));
     }
   }, [search]); // eslint-disable-line
+
+  function handleDelete(id) {
+    dispatch(deleteStudentRequest(id));
+  }
 
   return (
     <Container>
@@ -65,7 +72,12 @@ export default function Students() {
                   <td>{student.idade}</td>
                   <td>
                     <Link to={`students/${student.id}/edit`}>Editar</Link>
-                    <button type="button">Apagar</button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(student.id)}
+                    >
+                      Apagar
+                    </button>
                   </td>
                 </tr>
               ))}

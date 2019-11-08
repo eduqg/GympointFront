@@ -11,6 +11,14 @@ export const Container = styled.div`
 export const Content = styled.div`
   width: 100%;
   max-width: 1000px;
+
+  p {
+    margin-top: 16px;
+    margin-bottom: 4px;
+    color: ${lighten(0.2, '#333')};
+    text-transform: uppercase;
+    font-weight: bold;
+  }
 `;
 
 export const Nav = styled.div`

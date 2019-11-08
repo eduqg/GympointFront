@@ -66,6 +66,14 @@ export const Box = styled.div`
   background-color: #fff;
   border-radius: 5px;
 
+  p {
+    margin-top: 16px;
+    margin-bottom: 4px;
+    color: ${lighten(0.2, '#333')};
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
   select {
     width: 100%;
     border: 1px solid ${lighten(0.6, '#333')};
