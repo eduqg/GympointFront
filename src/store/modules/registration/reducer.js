@@ -4,10 +4,14 @@ const INITIAL_STATE = {
   registration: null,
 };
 
-export default function user(state = INITIAL_STATE, action) {
+export default function registration(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@registration/CREATE_REGISTRATION_SUCCESS': {
+        draft.registration = action.payload.registration;
+        break;
+      }
+      case '@registration/UPDATE_REGISTRATION_SUCCESS': {
         draft.registration = action.payload.registration;
         break;
       }

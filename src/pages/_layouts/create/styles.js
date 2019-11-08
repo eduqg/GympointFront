@@ -81,6 +81,16 @@ export const Box = styled.div`
     font-weight: 8px;
     margin-top: 10px;
   }
+
+  input {
+    border: 1px solid ${lighten(0.6, '#333')};
+    height: 32px;
+    border-radius: 5px;
+    color: ${lighten(0.3, '#333')};
+    text-align: left;
+    width: 100%;
+    padding-left: 8px;
+  }
 `;
 
 export const InputsBelow = styled.div`
@@ -111,5 +121,11 @@ export const InputsBelow = styled.div`
     border-radius: 5px;
     color: ${lighten(0.3, '#333')};
     text-align: center;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;

@@ -28,7 +28,6 @@ export default function RegistrationCreate() {
   const [start_date, setStartDate] = useState(new Date());
 
   function handleSubmit({ student_id, plan_id }) {
-    console.tron.log('No handle submit', student_id, plan_id, start_date);
     dispatch(createRegistrationRequest(student_id, plan_id, start_date));
   }
 
