@@ -36,7 +36,7 @@ export default function Plans() {
             </thead>
             <tbody>
               {plans.map(plan => (
-                <tr>
+                <tr key={plan.id}>
                   <td className="align-left">{plan.title}</td>
                   <td>
                     {plan.duration}
@@ -44,7 +44,7 @@ export default function Plans() {
                   </td>
                   <td>{plan.price}</td>
                   <td>
-                    <Link to="/">Editar</Link>
+                    <Link to={`/plans/${plan.id}/edit`}>Editar</Link>
                     <button type="button">Apagar</button>
                   </td>
                 </tr>

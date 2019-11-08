@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
+import api from '../../services/api';
+
 import { createPlanRequest } from '../../store/modules/plans/actions';
 
 import {
@@ -21,26 +23,37 @@ const schema = Yup.object().shape({
   price: Yup.number().required('É necessário selecionar um preço.'),
 });
 
-export default function PlanCreate() {
+export default function PlanEdit({ match }) {
   const dispatch = useDispatch();
   const [planDuration, setPlanDuration] = useState(0);
   const [planPrice, setPlanPrice] = useState(0);
   const [total, setTotal] = useState(0);
+  const [currentPlan, setCurrentPlan] = useState([]);
+  const { id } = match.params;
+
+  useEffect(() => {
+    let response = [];
+    async function loadPlan() {
+      response = await api.get(`/plans/${id}`);
+      setCurrentPlan(response.data[0]);
+    }
+    loadPlan();
+  }, []); //eslint-disable-line
 
   useEffect(() => {
     setTotal(planDuration * planPrice);
   }, [planDuration, planPrice]);
 
   function handleSubmit({ title, duration, price }) {
-    dispatch(createPlanRequest(title, duration, price));
+    dispatch(createPlanRequest(title, duration, price, id));
   }
 
   return (
     <Container>
       <Content>
-        <Form schema={schema} onSubmit={handleSubmit}>
+        <Form initialData={currentPlan} schema={schema} onSubmit={handleSubmit}>
           <Nav>
-            <strong>Cadastro de Plano</strong>
+            <strong>Edição de Plano</strong>
             <div>
               <Link to="/plans/">
                 <MdChevronLeft size={24} color="#fff" />

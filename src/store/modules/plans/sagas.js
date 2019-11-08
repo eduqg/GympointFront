@@ -4,7 +4,12 @@ import { toast } from 'react-toastify';
 import api from '../../../services/api';
 import history from '../../../services/history';
 
-import { createPlanSuccess, createPlanFailure } from './actions';
+import {
+  createPlanSuccess,
+  createPlanFailure,
+  updatePlanSuccess,
+  updatePlanFailure,
+} from './actions';
 
 export function* createPlan({ payload }) {
   try {
@@ -23,6 +28,31 @@ export function* createPlan({ payload }) {
   } catch (error) {
     toast.error(`Erro ao criar plano: ${error.response.data.error}`);
     yield put(createPlanFailure());
+  }
+}
+
+export function* updatePlan({ payload }) {
+  try {
+    const { title, duration, price, id } = payload;
+
+    console.tron.log('Payload: ', payload);
+
+    const data = {
+      title,
+      duration,
+      price,
+    };
+
+    const response = yield call(api.put, `/plans/${id}`, data);
+    console.tron.log('Response', response);
+    toast.success('Plano atualizado com sucesso.');
+
+    yield put(updatePlanSuccess(response.data));
+
+    history.push('/plans');
+  } catch (error) {
+    toast.error(`Erro atualizar plano: ${error.response.data.error}`);
+    yield put(updatePlanFailure());
   }
 }
 

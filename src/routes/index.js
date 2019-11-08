@@ -7,6 +7,7 @@ import SignUp from '../pages/SignUp';
 
 import Plans from '../pages/Plans/index';
 import PlanCreate from '../pages/Plans/create';
+import PlanEdit from '../pages/Plans/edit';
 
 import Registrations from '../pages/Registrations';
 import RegistrationCreate from '../pages/Registrations/create';
@@ -24,6 +25,7 @@ export default function Routes() {
 
       <Route exact path="/plans" component={Plans} isPrivate />
       <Route path="/plans/create" component={PlanCreate} isPrivate />
+      <Route path="/plans/:id/edit" component={PlanEdit} isPrivate />
 
       <Route exact path="/registrations" component={Registrations} isPrivate />
       <Route
