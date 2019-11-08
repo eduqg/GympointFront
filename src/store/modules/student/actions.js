@@ -42,9 +42,10 @@ export function updateStudentFailure() {
 
 // GET ALL STUDENTS
 
-export function loadAllStudentsRequest() {
+export function loadAllStudentsRequest(search) {
   return {
     type: '@student/LOAD_ALL_STUDENTS_REQUEST',
+    payload: { search },
   };
 }
 

@@ -34,8 +34,41 @@ export const Nav = styled.div`
     height: 32px;
     font-size: 12px;
     font-weight: bold;
-    padding: 10px 15px;
+    padding: 10px 10px;
   }
+
+  div {
+    display: flex;
+    flex-direction: row;
+
+    svg {
+      background: #fff;
+      height: 30px;
+    }
+
+    input {
+      color: ${lighten(0.4, '#333')};
+      height: 32px;
+      font-size: 12px;
+      border: 1px solid ${lighten(0.7, '#333')};
+      border-left: 0;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      padding-left: 8px;
+    }
+  }
+`;
+
+export const BoxIcon = styled.div`
+  font-size: 12px;
+  margin-left: 8px;
+  border: 1px solid ${lighten(0.7, '#333')};
+
+  border-right: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 0px 5px;
+  background: #fff;
 `;
 
 export const Items = styled.div`

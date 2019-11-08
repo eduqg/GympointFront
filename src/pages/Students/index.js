@@ -1,24 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Content, Items, Nav } from '../_layouts/list/styles';
-
+import { Input } from '@rocketseat/unform';
+import { MdSearch } from 'react-icons/md';
+import {
+  Container,
+  Content,
+  Items,
+  Nav,
+  BoxIcon,
+} from '../_layouts/list/styles';
 import { loadAllStudentsRequest } from '../../store/modules/student/actions';
 
 export default function Students() {
   const dispatch = useDispatch();
   const students = useSelector(state => state.student.allstudents) || [];
+  const [search, setSearch] = useState(null);
 
   useEffect(() => {
     dispatch(loadAllStudentsRequest());
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    if (search !== null) {
+      dispatch(loadAllStudentsRequest(search));
+    }
+  }, [search]); // eslint-disable-line
 
   return (
     <Container>
       <Content>
         <Nav>
           <strong>Gerenciar Alunos</strong>
-          <Link to="/students/create">+ Cadastrar</Link>
+          <div>
+            <Link to="/students/create">+ Cadastrar</Link>
+            <BoxIcon>
+              <MdSearch color="#999" size={20} />
+            </BoxIcon>
+            <Input
+              checked={search}
+              onChange={e => setSearch(e.target.value)}
+              name="search"
+              type="text"
+              placeholder="Buscar aluno"
+            />
+          </div>
         </Nav>
         <Items>
           <table>

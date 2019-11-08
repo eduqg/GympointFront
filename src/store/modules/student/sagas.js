@@ -58,11 +58,16 @@ export function* updateStudent({ payload }) {
   }
 }
 
-export function* loadStudents() {
+export function* loadStudents({ payload }) {
   try {
-    const response = yield api.get('students');
+    const { search } = payload;
+    let response = null;
+    if (search) {
+      response = yield api.get(`students?q=${payload.search}`);
+    } else {
+      response = yield api.get('students');
+    }
 
-    console.tron.log(response);
     if (response) {
       yield put(loadAllStudentsSuccess(response.data));
     }
