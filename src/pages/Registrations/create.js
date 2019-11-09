@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Form, Select } from '@rocketseat/unform';
+import { addMonths } from 'date-fns';
 
 import DatePicker from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
@@ -30,6 +31,11 @@ export default function RegistrationCreate() {
   const dispatch = useDispatch();
   const [start_date, setStartDate] = useState(new Date());
   const plans = useSelector(state => state.plan.allplans) || [];
+  const [endDate, setEndDate] = useState(new Date());
+  const [selectedPlanId, setSelectedPlanId] = useState(null);
+  const [choosenPlan, setChoosenPlan] = useState(null);
+  const [finalPrice, setFinalPrice] = useState(0);
+
   // Unform issue workaround. Options don't accept name.
   const students =
     useSelector(state => {
@@ -51,6 +57,31 @@ export default function RegistrationCreate() {
   function handleSubmit({ student_id, plan_id }) {
     dispatch(createRegistrationRequest(student_id, plan_id, start_date));
   }
+
+  // Atualiza plano corrente de acordo com seletor
+  useEffect(() => {
+    let currentPlan = {};
+    if (selectedPlanId) {
+      currentPlan = plans.find(item => item.id.toString() === selectedPlanId);
+    }
+    setChoosenPlan(currentPlan);
+    }, [selectedPlanId]);// eslint-disable-line
+
+  // Atualiza campo de data de término
+  useEffect(() => {
+    // Se existe um plano carregado no selector
+    if (selectedPlanId) {
+      setEndDate(addMonths(start_date, choosenPlan.duration));
+    }
+  }, [choosenPlan, start_date]); // eslint-disable-line
+
+  // Atualiza valor final
+  useEffect(() => {
+    if (selectedPlanId) {
+      const { price, duration } = choosenPlan;
+      setFinalPrice(price * duration);
+    }
+  }, [choosenPlan]); // eslint-disable-line
 
   return (
     <Container>
@@ -75,7 +106,12 @@ export default function RegistrationCreate() {
             <InputsBelow>
               <div>
                 <p>Plano</p>
-                <Select name="plan_id" options={plans} />
+                <Select
+                  selected={selectedPlanId}
+                  onChange={p => setSelectedPlanId(p.target.value)}
+                  name="plan_id"
+                  options={plans}
+                />
               </div>
               <div>
                 <p>Data de Início</p>
@@ -88,11 +124,17 @@ export default function RegistrationCreate() {
               </div>
               <div>
                 <p>Data de Término</p>
-                <input name="enddate" value="10/05/2019" disabled />
+                <DatePicker
+                  name="enddate"
+                  selected={endDate}
+                  locale={pt}
+                  dateFormat="P"
+                  disabled
+                />
               </div>
               <div>
                 <p>Valor Final</p>
-                <input name="price" value="R$ 990,00" disabled />
+                <input name="price" value={`R$ ${finalPrice}`} disabled />
               </div>
             </InputsBelow>
           </Box>

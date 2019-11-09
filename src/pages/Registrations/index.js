@@ -35,7 +35,7 @@ export default function Registrations() {
     <Container>
       <Content>
         <Nav>
-          <strong>Gerenciar Alunos</strong>
+          <strong>Gerenciar Matrículas</strong>
           <Link to="/registrations/create">+ Cadastrar</Link>
         </Nav>
         <Items>

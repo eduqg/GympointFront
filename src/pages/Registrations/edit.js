@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Form, Select } from '@rocketseat/unform';
+import { parseISO, addMonths } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import DatePicker from 'react-datepicker';
 import pt from 'date-fns/locale/pt-BR';
@@ -30,6 +32,10 @@ const schema = Yup.object().shape({
 export default function RegistrationUpdate({ match }) {
   const dispatch = useDispatch();
   const [start_date, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [selectedPlanId, setSelectedPlanId] = useState(null);
+  const [choosenPlan, setChoosenPlan] = useState(null);
+  const [finalPrice, setFinalPrice] = useState(0);
   const { id } = match.params;
   const plans = useSelector(state => state.plan.allplans) || [];
   const students =
@@ -44,16 +50,48 @@ export default function RegistrationUpdate({ match }) {
       return titledStudents;
     }) || [];
 
-  useEffect(() => {
-    dispatch(loadAllPlansRequest());
-    dispatch(loadAllStudentsRequest());
-  }, []);  // eslint-disable-line
-
   const oneregistration = useSelector(state => {
     return state.registration.allregistrations.find(item => {
       return item.id.toString() === id;
     });
   }) || { student_id: '1', plan_id: '1', start_date: '10/10/2020' };
+
+  // Carrega planos e estudantes a serem utilizados
+  useEffect(() => {
+    dispatch(loadAllPlansRequest());
+    dispatch(loadAllStudentsRequest());
+  }, []);  // eslint-disable-line
+
+  // Atualiza plano corrente de acordo com seletor
+  useEffect(() => {
+    let currentPlan = {};
+    if (selectedPlanId) {
+      currentPlan = plans.find(item => item.id.toString() === selectedPlanId);
+    } else {
+      currentPlan = plans.find(item => item.id === oneregistration.plan_id);
+    }
+    setChoosenPlan(currentPlan);
+  }, [selectedPlanId]);// eslint-disable-line
+
+  // Carrega primeiro valor data de inicio e data final
+  useEffect(() => {
+    setStartDate(parseISO(oneregistration.start_date));
+    setEndDate(parseISO(oneregistration.end_date));
+  },[]); // eslint-disable-line
+
+  // Atualiza campo de data de término
+  useEffect(() => {
+    if (choosenPlan) {
+      setEndDate(addMonths(start_date, choosenPlan.duration));
+    }
+  }, [choosenPlan, start_date]); // eslint-disable-line
+
+  // Atualiza campo de valor final
+  useEffect(() => {
+    if (choosenPlan) {
+      setFinalPrice(choosenPlan.duration * choosenPlan.price);
+    }
+  }, [choosenPlan]); // eslint-disable-line
 
   function handleSubmit({ student_id, plan_id }) {
     console.tron.log('No handle submit', student_id, plan_id, start_date, id);
@@ -87,7 +125,12 @@ export default function RegistrationUpdate({ match }) {
             <InputsBelow>
               <div>
                 <p>Plano</p>
-                <Select name="plan_id" options={plans} />
+                <Select
+                  selected={selectedPlanId}
+                  onChange={p => setSelectedPlanId(p.target.value)}
+                  name="plan_id"
+                  options={plans}
+                />
               </div>
               <div>
                 <p>Data de Início</p>
@@ -101,11 +144,17 @@ export default function RegistrationUpdate({ match }) {
               </div>
               <div>
                 <p>Data de Término</p>
-                <input name="enddate" value="10/05/2019" disabled />
+                <DatePicker
+                  name="enddate"
+                  selected={endDate}
+                  locale={pt}
+                  dateFormat="P"
+                  disabled
+                />
               </div>
               <div>
                 <p>Valor Final</p>
-                <input name="price" value="R$ 990,00" disabled />
+                <input name="price" value={`R$ ${finalPrice}`} disabled />
               </div>
             </InputsBelow>
           </Box>
@@ -114,3 +163,11 @@ export default function RegistrationUpdate({ match }) {
     </Container>
   );
 }
+
+RegistrationUpdate.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
