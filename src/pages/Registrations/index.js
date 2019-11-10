@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
-import { Container, Content, Items, Nav } from '../_layouts/list/styles';
+import {
+  Container,
+  Content,
+  Items,
+  Nav,
+  ControlPages,
+} from '../_layouts/list/styles';
 
 import {
   loadAllRegistrationsRequest,
@@ -15,10 +21,19 @@ export default function Registrations() {
   const registrations =
     useSelector(state => state.registration.allregistrations) || [];
 
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    console.tron.log('usando efeito');
-    dispatch(loadAllRegistrationsRequest());
+    dispatch(loadAllRegistrationsRequest(1));
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    if (page > 0) {
+      dispatch(loadAllRegistrationsRequest(page));
+    }
+  }, [page]); // eslint-disable-line
+
+  useEffect(() => { }, [registrations]); // eslint-disable-line
 
   function formatDate(date) {
     const formattedDate = format(parseISO(date), "'Dia' dd 'de' MMMM'", {
@@ -31,6 +46,18 @@ export default function Registrations() {
     const result = window.confirm('Tem certeza que deseja excluir esse campo?');
     if (result) {
       dispatch(deleteRegistrationRequest(id));
+    }
+  }
+
+  function handleChangePage(newPage) {
+    // Se estiver na primeira página, não pode voltar mais uma página
+    if (newPage > 0 && registrations.length !== 0) {
+      setPage(newPage);
+    }
+
+    // Se estiver na última página e clica no botão de voltar
+    if (registrations.length === 0 && newPage < page) {
+      setPage(newPage);
     }
   }
 
@@ -77,7 +104,19 @@ export default function Registrations() {
               ))}
             </tbody>
           </table>
+          {registrations.length < 1 && <h2>Fim das matrículas</h2>}
         </Items>
+        <ControlPages>
+          <button
+            type="button"
+            onClick={() => handleChangePage(page - 1)}
+          >{`<`}</button>
+          <p>{page}</p>
+          <button
+            type="button"
+            onClick={() => handleChangePage(page + 1)}
+          >{`>`}</button>
+        </ControlPages>
       </Content>
     </Container>
   );

@@ -84,6 +84,12 @@ export const Items = styled.div`
   background-color: #fff;
   border-radius: 5px;
 
+  h2 {
+    color: ${lighten(0.6, '#333')};
+    font-size: 14px;
+    margin-top: 16px;
+  }
+
   table {
     border-radius: 5px;
     width: 100%;
@@ -132,5 +138,44 @@ export const Items = styled.div`
     td a {
       color: blue;
     }
+  }
+`;
+
+export const ControlPages = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  justify-content: center;
+  margin-top: 16px;
+
+  button {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    background: #df4658;
+    border-radius: 3px;
+    color: #fff;
+    height: 32px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 0;
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    background: #fff;
+    border-radius: 3px;
+    color: ${lighten(0.2, '#333')};
+    height: 32px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 10px;
+    margin: 0 1px;
+    width: 100px;
+    justify-content: center;
   }
 `;

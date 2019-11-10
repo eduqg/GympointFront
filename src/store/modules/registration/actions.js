@@ -41,9 +41,10 @@ export function updateRegistrationFailure() {
 
 // GET ALL REGISTRATIONS
 
-export function loadAllRegistrationsRequest() {
+export function loadAllRegistrationsRequest(page) {
   return {
     type: '@registration/LOAD_ALL_REGISTRATIONS_REQUEST',
+    payload: { page },
   };
 }
 

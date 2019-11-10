@@ -82,9 +82,20 @@ export function* deleteRegistration({ payload }) {
   }
 }
 
-export function* loadRegistrations() {
+export function* loadRegistrations({ payload }) {
   try {
-    const response = yield api.get('registrations');
+    let response = [];
+    const { page } = payload;
+    console.tron.log('page', payload.page);
+    if (page) {
+      response = yield api.get('registrations', {
+        params: {
+          page,
+        },
+      });
+    } else {
+      response = yield api.get('registrations');
+    }
 
     if (response) {
       yield put(loadAllRegistrationsSuccess(response.data));
