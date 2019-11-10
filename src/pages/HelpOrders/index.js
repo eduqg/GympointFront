@@ -53,7 +53,9 @@ export default function HelpOrders() {
             <p className="question">{question}</p>
             <p>Sua resposta</p>
             <Input name="answer" type="text" />
-            <button type="submit">Responder Aluno</button>
+            <button type="submit" onClick={hideModal}>
+              Responder Aluno
+            </button>
           </Form>
         </Modal>
 

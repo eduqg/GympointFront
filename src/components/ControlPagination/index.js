@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { ControlPages } from './styles';
 
 export default function ControlePagination({
@@ -25,3 +27,9 @@ export default function ControlePagination({
     </ControlPages>
   );
 }
+
+ControlePagination.propTypes = {
+  objectLength: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+};
