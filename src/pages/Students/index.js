@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Input } from '@rocketseat/unform';
 import { MdSearch } from 'react-icons/md';
+
+import ControlPagination from '../../components/ControlPagination';
+
 import {
   Container,
   Content,
@@ -10,6 +13,7 @@ import {
   Nav,
   BoxIcon,
 } from '../_layouts/list/styles';
+
 import {
   loadAllStudentsRequest,
   deleteStudentRequest,
@@ -19,21 +23,41 @@ export default function Students() {
   const dispatch = useDispatch();
   const students = useSelector(state => state.student.allstudents) || [];
   const [search, setSearch] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(loadAllStudentsRequest());
+    // Initial search and page
+    dispatch(loadAllStudentsRequest(null, 1));
   }, []); // eslint-disable-line
 
   useEffect(() => {
     if (search !== null) {
-      dispatch(loadAllStudentsRequest(search));
+      dispatch(loadAllStudentsRequest(search, null));
     }
   }, [search]); // eslint-disable-line
+
+  useEffect(() => {
+    if (page > 0) {
+      dispatch(loadAllStudentsRequest(null, page));
+    }
+  }, [page]); // eslint-disable-line
 
   function handleDelete(id) {
     const result = window.confirm('Tem certeza que deseja excluir esse campo?');
     if (result) {
       dispatch(deleteStudentRequest(id));
+    }
+  }
+
+  function handleChangePage(newPage) {
+    // Se estiver na primeira página, não pode voltar mais uma página
+    if (newPage > 0 && students.length !== 0) {
+      setPage(newPage);
+    }
+
+    // Se estiver na última página e clica no botão de voltar
+    if (students.length === 0 && newPage < page) {
+      setPage(newPage);
     }
   }
 
@@ -86,7 +110,14 @@ export default function Students() {
               ))}
             </tbody>
           </table>
+          {students.length < 1 && <h2>Fim</h2>}
         </Items>
+
+        <ControlPagination
+          objectLength={students.length}
+          page={page}
+          handleChangePage={handleChangePage}
+        />
       </Content>
     </Container>
   );

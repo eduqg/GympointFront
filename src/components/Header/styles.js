@@ -21,7 +21,7 @@ export const Content = styled.div`
 
     img {
       display: flex;
-      width: 10%;
+      width: 70px;
     }
 
     a {

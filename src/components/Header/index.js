@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { signOut } from '../../store/modules/auth/actions';
 
 import { Container, Content, Profile } from './styles';
-import logo from '../../assets/gympoint.svg';
+import logo from '../../assets/halter.png';
 
 export default function Header() {
   const dispatch = useDispatch();

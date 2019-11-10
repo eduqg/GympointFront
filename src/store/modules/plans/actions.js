@@ -42,9 +42,10 @@ export function updatePlanFailure() {
 
 // GET ALL PLANS
 
-export function loadAllPlansRequest() {
+export function loadAllPlansRequest(page) {
   return {
     type: '@plan/LOAD_ALL_PLANS_REQUEST',
+    payload: { page },
   };
 }
 

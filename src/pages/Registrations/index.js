@@ -3,13 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
-import {
-  Container,
-  Content,
-  Items,
-  Nav,
-  ControlPages,
-} from '../_layouts/list/styles';
+import { Container, Content, Items, Nav } from '../_layouts/list/styles';
+
+import ControlPagination from '../../components/ControlPagination';
 
 import {
   loadAllRegistrationsRequest,
@@ -106,17 +102,12 @@ export default function Registrations() {
           </table>
           {registrations.length < 1 && <h2>Fim das matrículas</h2>}
         </Items>
-        <ControlPages>
-          <button
-            type="button"
-            onClick={() => handleChangePage(page - 1)}
-          >{`<`}</button>
-          <p>{page}</p>
-          <button
-            type="button"
-            onClick={() => handleChangePage(page + 1)}
-          >{`>`}</button>
-        </ControlPages>
+
+        <ControlPagination
+          objectLength={registrations.length}
+          page={page}
+          handleChangePage={handleChangePage}
+        />
       </Content>
     </Container>
   );

@@ -56,9 +56,16 @@ export function* updateStudent({ payload }) {
 
 export function* loadStudents({ payload }) {
   try {
-    const { search } = payload;
+    const { search, page } = payload;
     let response = null;
-    if (search) {
+
+    if (page) {
+      response = yield api.get('students', {
+        params: {
+          page,
+        },
+      });
+    } else if (search) {
       response = yield api.get(`students?q=${payload.search}`);
     } else {
       response = yield api.get('students');

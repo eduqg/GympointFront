@@ -52,11 +52,21 @@ export function* updatePlan({ payload }) {
   }
 }
 
-export function* loadPlans() {
+export function* loadPlans({ payload }) {
   try {
-    const response = yield api.get('plans');
+    let response = [];
+    const { page } = payload;
 
-    console.tron.log(response);
+    if (page) {
+      response = yield api.get('plans', {
+        params: {
+          page,
+        },
+      });
+    } else {
+      response = yield api.get('plans');
+    }
+
     if (response) {
       yield put(loadAllPlansSuccess(response.data));
     }
