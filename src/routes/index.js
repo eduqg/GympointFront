@@ -17,6 +17,8 @@ import Students from '../pages/Students';
 import StudentCreate from '../pages/Students/create';
 import StudentEdit from '../pages/Students/edit';
 
+import HelpOrders from '../pages/HelpOrders';
+
 export default function Routes() {
   return (
     <Switch>
@@ -42,6 +44,8 @@ export default function Routes() {
       <Route exact path="/students" component={Students} isPrivate />
       <Route path="/students/create" component={StudentCreate} isPrivate />
       <Route path="/students/:id/edit" component={StudentEdit} isPrivate />
+
+      <Route path="/help_orders" component={HelpOrders} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
     </Switch>

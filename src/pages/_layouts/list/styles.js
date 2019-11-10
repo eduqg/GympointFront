@@ -107,11 +107,26 @@ export const Items = styled.div`
       border-bottom: 1pt solid ${lighten(0.7, '#333')};
     }
 
+    tr td.answer {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
     td button {
       color: #df4658;
       border: 0;
       background: #fff;
       margin-left: 16px;
+    }
+    td button.help {
+      color: blue;
+      border: 0;
+      background: #fff;
+      margin-left: 16px;
+      display: flex;
+      justify-content: flex-end;
     }
 
     td a {
