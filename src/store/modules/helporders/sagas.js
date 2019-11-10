@@ -47,7 +47,7 @@ export function* loadHelporders() {
   }
 }
 
-export function* loadNotAnsweredHelporders() { }
+// export function* loadNotAnsweredHelporders() { }
 
 export function* loadOne({ payload }) {
   try {
@@ -71,9 +71,9 @@ export function* loadOne({ payload }) {
 export default all([
   takeLatest('@helporder/CREATE_ANSWER_HELPORDER_REQUEST', createAnswer),
   takeLatest('@helporder/LOAD_ALL_HELPORDERS_REQUEST', loadHelporders),
-  takeLatest(
-    '@helporder/LOAD_ALL_NOT_ANSWERED_HELPORDERS_SUCCESS',
-    loadNotAnsweredHelporders
-  ),
+  // takeLatest(
+  //   '@helporder/LOAD_ALL_NOT_ANSWERED_HELPORDERS_SUCCESS',
+  //   loadNotAnsweredHelporders
+  // ),
   takeLatest('@helporder/LOAD_ONE_HELPORDER_REQUEST', loadOne),
 ]);

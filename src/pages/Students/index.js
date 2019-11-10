@@ -31,7 +31,10 @@ export default function Students() {
   }, [search]); // eslint-disable-line
 
   function handleDelete(id) {
-    dispatch(deleteStudentRequest(id));
+    const result = window.confirm('Tem certeza que deseja excluir esse campo?');
+    if (result) {
+      dispatch(deleteStudentRequest(id));
+    }
   }
 
   return (

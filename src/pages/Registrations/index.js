@@ -28,7 +28,10 @@ export default function Registrations() {
   }
 
   function handleDelete(id) {
-    dispatch(deleteRegistrationRequest(id));
+    const result = window.confirm('Tem certeza que deseja excluir esse campo?');
+    if (result) {
+      dispatch(deleteRegistrationRequest(id));
+    }
   }
 
   return (

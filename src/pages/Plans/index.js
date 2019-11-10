@@ -17,7 +17,10 @@ export default function Plans() {
   }, []); // eslint-disable-line
 
   function handleDelete(id) {
-    dispatch(deletePlanRequest(id));
+    const result = window.confirm('Tem certeza que deseja excluir esse campo?');
+    if (result) {
+      dispatch(deletePlanRequest(id));
+    }
   }
 
   return (

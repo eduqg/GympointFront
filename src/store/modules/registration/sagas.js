@@ -30,6 +30,8 @@ export function* createRegistration({ payload }) {
     toast.success('Matrícula efetuada com sucesso.');
 
     yield put(createRegistrationSuccess(response.data));
+
+    history.push('/registrations');
   } catch (error) {
     toast.error(`Erro ao fazer matrícula: ${error.response.data.error}`);
     yield put(createRegistrationFailure());
@@ -72,7 +74,7 @@ export function* deleteRegistration({ payload }) {
     yield call(api.delete, `/registrations/${id}`);
 
     yield put(deleteRegistrationSuccess(id));
-    toast.warn('Matrícula deletado.');
+    toast.warn('Matrícula deletada.');
     history.push('/registrations');
   } catch (error) {
     toast.error(`Erro ao deletar matrícula: ${error.response.data.error}`);
