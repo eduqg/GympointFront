@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -77,7 +77,7 @@ export default function RegistrationUpdate({ match }) {
   useEffect(() => {
     setStartDate(parseISO(oneregistration.start_date));
     setEndDate(parseISO(oneregistration.end_date));
-  },[]); // eslint-disable-line
+  }, []); // eslint-disable-line
 
   // Atualiza campo de data de término
   useEffect(() => {
@@ -97,6 +97,10 @@ export default function RegistrationUpdate({ match }) {
     console.tron.log('No handle submit', student_id, plan_id, start_date, id);
     dispatch(updateRegistrationRequest(student_id, plan_id, start_date, id));
   }
+
+  const priceCurrency = useMemo(() => `R$ ${finalPrice.toFixed(2)}`, [
+    finalPrice,
+  ]);
 
   return (
     <Container>
@@ -154,7 +158,7 @@ export default function RegistrationUpdate({ match }) {
               </div>
               <div>
                 <p>Valor Final</p>
-                <input name="price" value={`R$ ${finalPrice}`} disabled />
+                <input name="price" value={priceCurrency} disabled />
               </div>
             </InputsBelow>
           </Box>

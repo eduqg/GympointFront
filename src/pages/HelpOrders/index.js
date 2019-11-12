@@ -52,7 +52,12 @@ export default function HelpOrders() {
             <p>Pergunta do Aluno</p>
             <p className="question">{question}</p>
             <p>Sua resposta</p>
-            <Input name="answer" type="text" />
+            <Input
+              name="answer"
+              type="text"
+              placeholder="Digite uma resposta"
+              autocomplete="off"
+            />
             <button type="submit" onClick={hideModal}>
               Responder Aluno
             </button>

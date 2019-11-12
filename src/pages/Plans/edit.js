@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -36,12 +36,20 @@ export default function PlanEdit({ match }) {
   }) || { title: 'Digite um plano', duration: 1, price: 1 };
 
   useEffect(() => {
-    setTotal(planDuration * planPrice);
-  }, [planDuration, planPrice]);
+    if (planDuration || planPrice) {
+      setTotal(
+        (planDuration || oneplan.duration) * (planPrice || oneplan.price)
+      );
+    } else {
+      setTotal(oneplan.duration * oneplan.price);
+    }
+  }, [planDuration, planPrice]); // eslint-disable-line
 
   function handleSubmit({ title, duration, price }) {
     dispatch(updatePlanRequest(title, duration, price, id));
   }
+
+  const priceCurrency = useMemo(() => `R$ ${total.toFixed(2)}`, [total]);
 
   return (
     <Container>
@@ -73,6 +81,7 @@ export default function PlanEdit({ match }) {
                   type="number"
                   min="1"
                   step="1"
+                  autocomplete="off"
                 />
               </div>
               <div>
@@ -84,11 +93,13 @@ export default function PlanEdit({ match }) {
                   type="number"
                   step="0.01"
                   min="0"
+                  placeholder="R$ 0.00"
+                  autocomplete="off"
                 />
               </div>
               <div>
                 <p>Preço Total</p>
-                <input name="total" value={`R$ ${total}`} disabled />
+                <input name="total" value={priceCurrency} disabled />
               </div>
             </InputsBelow>
           </Box>

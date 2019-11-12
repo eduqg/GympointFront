@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -35,6 +35,8 @@ export default function PlanCreate() {
     dispatch(createPlanRequest(title, duration, price));
   }
 
+  const priceCurrency = useMemo(() => `R$ ${total.toFixed(2)}`, [total]);
+
   return (
     <Container>
       <Content>
@@ -54,7 +56,7 @@ export default function PlanCreate() {
           </Nav>
           <Box>
             <p>Título do Plano</p>
-            <Input name="title" />
+            <Input name="title" autocomplete="off" placeholder="Título" />
             <InputsBelow>
               <div>
                 <p>Duração</p>
@@ -65,6 +67,8 @@ export default function PlanCreate() {
                   type="number"
                   min="1"
                   step="1"
+                  placeholder="Duração em meses"
+                  autocomplete="off"
                 />
               </div>
               <div>
@@ -76,11 +80,13 @@ export default function PlanCreate() {
                   type="number"
                   step="0.01"
                   min="0"
+                  placeholder="R$ 0.00"
+                  autocomplete="off"
                 />
               </div>
               <div>
                 <p>Preço Total</p>
-                <input name="total" value={`R$ ${total}`} disabled />
+                <input name="total" value={priceCurrency} disabled />
               </div>
             </InputsBelow>
           </Box>

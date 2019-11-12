@@ -46,7 +46,8 @@ export const ModalMain = styled.section`
     border: 1px solid ${lighten(0.5, '#333')};
     color: ${lighten(0.5, '#333')};
     margin-top: 8px;
-    padding: 8px;
+    padding: 0 8px;
+    padding-bottom: 60px;
   }
 
   button {

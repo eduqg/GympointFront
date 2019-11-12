@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -65,7 +65,7 @@ export default function RegistrationCreate() {
       currentPlan = plans.find(item => item.id.toString() === selectedPlanId);
     }
     setChoosenPlan(currentPlan);
-    }, [selectedPlanId]);// eslint-disable-line
+  }, [selectedPlanId]);// eslint-disable-line
 
   // Atualiza campo de data de término
   useEffect(() => {
@@ -82,6 +82,10 @@ export default function RegistrationCreate() {
       setFinalPrice(price * duration);
     }
   }, [choosenPlan]); // eslint-disable-line
+
+  const priceCurrency = useMemo(() => `R$ ${finalPrice.toFixed(2)}`, [
+    finalPrice,
+  ]);
 
   return (
     <Container>
@@ -102,7 +106,11 @@ export default function RegistrationCreate() {
           </Nav>
           <Box>
             <p>Aluno</p>
-            <Select name="student_id" options={students} />
+            <Select
+              name="student_id"
+              placeholder="Selecione um Aluno"
+              options={students}
+            />
             <InputsBelow>
               <div>
                 <p>Plano</p>
@@ -111,6 +119,7 @@ export default function RegistrationCreate() {
                   onChange={p => setSelectedPlanId(p.target.value)}
                   name="plan_id"
                   options={plans}
+                  placeholder="Selecionar"
                 />
               </div>
               <div>
@@ -134,7 +143,7 @@ export default function RegistrationCreate() {
               </div>
               <div>
                 <p>Valor Final</p>
-                <input name="price" value={`R$ ${finalPrice}`} disabled />
+                <input name="price" value={priceCurrency} disabled />
               </div>
             </InputsBelow>
           </Box>
