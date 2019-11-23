@@ -53,14 +53,26 @@ export default function StudentCreate() {
             <p>Nome Completo</p>
             <Input
               name="name"
-              autocomplete="off"
-              placeholder="Digite o título do plano"
+              autoComplete="off"
+              placeholder="Nome completo"
+              onFocus={e => {
+                e.target.placeholder = '';
+              }}
+              onBlur={e => {
+                e.target.placeholder = 'Nome completo';
+              }}
             />
             <p>Endereço de e-mail</p>
             <Input
               name="email"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Digite o endereço de email"
+              onFocus={e => {
+                e.target.placeholder = '';
+              }}
+              onBlur={e => {
+                e.target.placeholder = 'Digite o endereço de email';
+              }}
             />
             <InputsBelow>
               <div>
@@ -71,7 +83,13 @@ export default function StudentCreate() {
                   placeholder="Digite a idade"
                   min="1"
                   step="1"
-                  autocomplete="off"
+                  autoComplete="off"
+                  onFocus={e => {
+                    e.target.placeholder = '';
+                  }}
+                  onBlur={e => {
+                    e.target.placeholder = 'Digite a idade';
+                  }}
                 />
               </div>
               <div>
@@ -82,7 +100,13 @@ export default function StudentCreate() {
                   placeholder="Digite o peso"
                   step="0.1"
                   min="0"
-                  autocomplete="off"
+                  autoComplete="off"
+                  onFocus={e => {
+                    e.target.placeholder = '';
+                  }}
+                  onBlur={e => {
+                    e.target.placeholder = 'Digite o peso';
+                  }}
                 />
               </div>
               <div>
@@ -93,7 +117,13 @@ export default function StudentCreate() {
                   placeholder="Digite a altura"
                   step="0.01"
                   min="0"
-                  autocomplete="off"
+                  autoComplete="off"
+                  onFocus={e => {
+                    e.target.placeholder = '';
+                  }}
+                  onBlur={e => {
+                    e.target.placeholder = 'Digite a altura';
+                  }}
                 />
               </div>
             </InputsBelow>

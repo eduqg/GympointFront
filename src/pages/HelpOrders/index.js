@@ -56,7 +56,7 @@ export default function HelpOrders() {
               name="answer"
               type="text"
               placeholder="Digite uma resposta"
-              autocomplete="off"
+              autoComplete="off"
             />
             <button type="submit" onClick={hideModal}>
               Responder Aluno

@@ -56,7 +56,7 @@ export default function PlanCreate() {
           </Nav>
           <Box>
             <p>Título do Plano</p>
-            <Input name="title" autocomplete="off" placeholder="Título" />
+            <Input name="title" autoComplete="off" placeholder="Título" />
             <InputsBelow>
               <div>
                 <p>Duração</p>
@@ -68,7 +68,7 @@ export default function PlanCreate() {
                   min="1"
                   step="1"
                   placeholder="Duração em meses"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <div>
@@ -81,7 +81,7 @@ export default function PlanCreate() {
                   step="0.01"
                   min="0"
                   placeholder="R$ 0.00"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <div>

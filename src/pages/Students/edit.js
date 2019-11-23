@@ -58,15 +58,15 @@ export default function StudentEdit({ match }) {
           </Nav>
           <Box>
             <p>Nome Completo</p>
-            <Input name="name" autocomplete="off" />
+            <Input name="name" autoComplete="off" />
             <p>Endereço de e-mail</p>
-            <Input name="email" autocomplete="off" />
+            <Input name="email" autoComplete="off" />
             <InputsBelow>
               <div>
                 <p>Idade</p>
                 <Input
                   name="idade"
-                  autocomplete="off"
+                  autoComplete="off"
                   type="number"
                   min="1"
                   step="1"
@@ -76,7 +76,7 @@ export default function StudentEdit({ match }) {
                 <p>Peso</p>
                 <Input
                   name="peso"
-                  autocomplete="off"
+                  autoComplete="off"
                   type="number"
                   step="0.1"
                   min="0"
@@ -86,7 +86,7 @@ export default function StudentEdit({ match }) {
                 <p>Altura</p>
                 <Input
                   name="altura"
-                  autocomplete="off"
+                  autoComplete="off"
                   type="number"
                   step="0.01"
                   min="0"

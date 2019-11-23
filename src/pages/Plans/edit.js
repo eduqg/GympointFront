@@ -81,7 +81,7 @@ export default function PlanEdit({ match }) {
                   type="number"
                   min="1"
                   step="1"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <div>
@@ -94,7 +94,7 @@ export default function PlanEdit({ match }) {
                   step="0.01"
                   min="0"
                   placeholder="R$ 0.00"
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               <div>
