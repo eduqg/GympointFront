@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { signOut } from '../../store/modules/auth/actions';
@@ -7,8 +7,13 @@ import { signOut } from '../../store/modules/auth/actions';
 import { Container, Content, Profile } from './styles';
 import logo from '../../assets/halter.png';
 
+import { store } from '../../store';
+
 export default function Header() {
   const dispatch = useDispatch();
+  const { signed } = useSelector(state => state.auth);
+
+  const authName = useMemo(() => store.getState().auth.name, [signed]); // eslint-disable-line
 
   function handleSignOut() {
     dispatch(signOut());
@@ -37,7 +42,7 @@ export default function Header() {
           </NavLink>
         </nav>
         <Profile>
-          <NavLink to="/register">Eduardo Quintino</NavLink>
+          <NavLink to="/register">{authName}</NavLink>
           <button type="button" onClick={handleSignOut}>
             Sair do sistema
           </button>
