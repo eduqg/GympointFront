@@ -7,7 +7,6 @@ import { Router } from 'react-router-dom';
 import './config/ReactotronConfig';
 
 import Routes from './routes';
-import Header from './components/Header';
 
 import history from './services/history';
 
@@ -20,7 +19,6 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router history={history}>
-          <Header />
           <Routes />
           <GlobalStyle />
           <ToastContainer />
