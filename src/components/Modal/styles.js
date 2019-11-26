@@ -39,15 +39,19 @@ export const ModalMain = styled.section`
     margin-top: 8px;
   }
 
-  input {
+  textarea {
+    display: flex;
+    text-align: flex-start;
+    justify-content: flex-start;
     height: 100px;
     width: 100%;
     border-radius: 5px;
     border: 1px solid ${lighten(0.5, '#333')};
     color: ${lighten(0.5, '#333')};
     margin-top: 8px;
-    padding: 0 8px;
-    padding-bottom: 60px;
+    padding: 8px 8px;
+    font: 14px 'Roboto', sans-serif;
+    resize: none;
   }
 
   button {
