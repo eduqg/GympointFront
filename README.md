@@ -15,6 +15,7 @@
 * Paginação.
 * Header com navegação.
 * Feedback com toasts.
+* Botão Sanduíche para telas pequenas.
 
 ### Tecnologias principais
 
@@ -51,4 +52,8 @@ Editar
 Respostas a alunos
 
 <img src="./src/assets/auxilio.png">
+
+Sanduíche
+
+<img src="./src/assets/sandwich.png">
 
