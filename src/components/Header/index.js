@@ -27,6 +27,7 @@ export default function Header() {
 
   function handleSignOut() {
     dispatch(signOut());
+    setShowSandwich(false);
   }
 
   function toggleSandwich() {
@@ -74,16 +75,32 @@ export default function Header() {
         </SandwichButton>
         {showSandwich && (
           <SandwichOptions>
-            <NavLink to="/students" activeStyle={{ color: '#333' }}>
+            <NavLink
+              to="/students"
+              onClick={() => setShowSandwich(false)}
+              activeStyle={{ color: '#333' }}
+            >
               ALUNOS
             </NavLink>
-            <NavLink to="/plans" activeStyle={{ color: '#333' }}>
+            <NavLink
+              to="/plans"
+              onClick={() => setShowSandwich(false)}
+              activeStyle={{ color: '#333' }}
+            >
               PLANOS
             </NavLink>
-            <NavLink to="/registrations" activeStyle={{ color: '#333' }}>
+            <NavLink
+              to="/registrations"
+              onClick={() => setShowSandwich(false)}
+              activeStyle={{ color: '#333' }}
+            >
               MATRÍCULAS
             </NavLink>
-            <NavLink to="/help_orders" activeStyle={{ color: '#333' }}>
+            <NavLink
+              to="/help_orders"
+              onClick={() => setShowSandwich(false)}
+              activeStyle={{ color: '#333' }}
+            >
               PEDIDOS DE AUXÍLIO
             </NavLink>
 
