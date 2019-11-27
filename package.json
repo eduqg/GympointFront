@@ -30,10 +30,27 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --watchAll --roots __tests__",
+    "coverage": "react-app-rewired test --watchAll=false --roots __tests__ --coverage",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "coverageDirectory": "__tests__/coverage",
+    "collectCoverageFrom" : [
+      "!src/index.js",
+      "!src/services/api.js"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +68,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@types/jest": "^24.0.23",
     "babel-eslint": "^10.0.3",
     "babel-plugin-root-import": "^6.4.1",
     "eslint": "^6.6.0",
@@ -62,6 +82,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "react-app-rewired": "^2.1.5"
   }
 }
