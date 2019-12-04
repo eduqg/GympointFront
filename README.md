@@ -4,7 +4,6 @@
 
 ## Características do software
 
-
 ### Funcionalidades
 
 * Login.
@@ -19,7 +18,6 @@
 
 ### Tecnologias principais
 
-
 * Redux.
 * Redux-saga.
 * Somente Functional Components.
@@ -32,6 +30,26 @@
 * Redux persist.
 * Yup para validação de schemas.
 * Unform para criação de formulários.
+
+
+## Como executar com Docker
+
+Clone e execute em um terminal o [backend da aplicação](https://github.com/eduqg/GympointBack).
+
+Em um outro terminal, faça a build do projeto.
+
+```console
+docker build -t frontgympoint .
+```
+
+Execute o container criado.
+
+```console
+docker run -it -p 8080:80 frontgympoint
+```
+
+Abra o navegador em [localhost:8080](http://localhost:8080).
+
 
 ## Imagens
 
