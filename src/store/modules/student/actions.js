@@ -49,10 +49,10 @@ export function loadAllStudentsRequest(search, page) {
   };
 }
 
-export function loadAllStudentsSuccess(allstudents) {
+export function loadAllStudentsSuccess(allstudents, nextPageCount) {
   return {
     type: '@student/LOAD_ALL_STUDENTS_SUCCESS',
-    payload: { allstudents },
+    payload: { allstudents, nextPageCount },
   };
 }
 

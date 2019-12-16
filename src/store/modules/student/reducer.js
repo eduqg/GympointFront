@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   student: null,
   allstudents: null,
+  nextPageCount: 0,
 };
 
 export default function student(state = INITIAL_STATE, action) {
@@ -20,6 +21,7 @@ export default function student(state = INITIAL_STATE, action) {
 
       case '@student/LOAD_ALL_STUDENTS_SUCCESS': {
         draft.allstudents = action.payload.allstudents;
+        draft.nextPageCount = action.payload.nextPageCount;
         break;
       }
 

@@ -22,6 +22,7 @@ import {
 export default function Students() {
   const dispatch = useDispatch();
   const students = useSelector(state => state.student.allstudents) || [];
+  const nextPageCount = useSelector(state => state.student.nextPageCount);
   const [search, setSearch] = useState(null);
   const [page, setPage] = useState(1);
 
@@ -51,12 +52,12 @@ export default function Students() {
 
   function handleChangePage(newPage) {
     // Se estiver na primeira página, não pode voltar mais uma página
-    if (newPage > 0 && students.length !== 0) {
+    if (newPage > 0 && nextPageCount !== 0) {
       setPage(newPage);
     }
 
     // Se estiver na última página e clica no botão de voltar
-    if (students.length === 0 && newPage < page) {
+    if (nextPageCount === 0 && newPage < page && students.length) {
       setPage(newPage);
     }
   }
@@ -110,11 +111,11 @@ export default function Students() {
               ))}
             </tbody>
           </table>
-          {students.length < 1 && <h2>Fim</h2>}
+          {nextPageCount < 1 && <h2>Fim</h2>}
         </Items>
 
         <ControlPagination
-          objectLength={students.length}
+          objectLength={nextPageCount}
           page={page}
           handleChangePage={handleChangePage}
         />

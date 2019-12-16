@@ -58,11 +58,17 @@ export function* loadStudents({ payload }) {
   try {
     const { search, page } = payload;
     let response = null;
+    let nextPageCount = null;
 
     if (page) {
       response = yield api.get('students', {
         params: {
           page,
+        },
+      });
+      nextPageCount = yield api.get('students', {
+        params: {
+          page: page + 1,
         },
       });
     } else if (search) {
@@ -72,7 +78,9 @@ export function* loadStudents({ payload }) {
     }
 
     if (response) {
-      yield put(loadAllStudentsSuccess(response.data));
+      yield put(
+        loadAllStudentsSuccess(response.data, nextPageCount.data.length)
+      );
     }
   } catch (error) {
     if (error.response.status === 400) {
