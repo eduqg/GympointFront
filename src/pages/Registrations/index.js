@@ -16,6 +16,7 @@ export default function Registrations() {
   const dispatch = useDispatch();
   const registrations =
     useSelector(state => state.registration.allregistrations) || [];
+  const nextPageCount = useSelector(state => state.registration.nextPageCount);
 
   const [page, setPage] = useState(1);
 
@@ -46,13 +47,13 @@ export default function Registrations() {
   }
 
   function handleChangePage(newPage) {
-    // Se estiver na primeira página, não pode voltar mais uma página
-    if (newPage > 0 && registrations.length !== 0) {
+    // Voltar página
+    if (newPage < page && newPage > 0) {
       setPage(newPage);
     }
 
-    // Se estiver na última página e clica no botão de voltar
-    if (registrations.length === 0 && newPage < page) {
+    // Avançar página
+    if (newPage > page && nextPageCount !== 0) {
       setPage(newPage);
     }
   }
@@ -100,11 +101,11 @@ export default function Registrations() {
               ))}
             </tbody>
           </table>
-          {registrations.length < 1 && <h2>Fim das matrículas</h2>}
+          {nextPageCount < 1 && <h2>Fim das matrículas</h2>}
         </Items>
 
         <ControlPagination
-          objectLength={registrations.length}
+          objectLength={nextPageCount}
           page={page}
           handleChangePage={handleChangePage}
         />

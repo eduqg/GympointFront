@@ -48,10 +48,10 @@ export function loadAllRegistrationsRequest(page) {
   };
 }
 
-export function loadAllRegistrationsSuccess(allregistrations) {
+export function loadAllRegistrationsSuccess(allregistrations, nextPageCount) {
   return {
     type: '@registration/LOAD_ALL_REGISTRATIONS_SUCCESS',
-    payload: { allregistrations },
+    payload: { allregistrations, nextPageCount },
   };
 }
 

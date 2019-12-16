@@ -49,10 +49,10 @@ export function loadAllPlansRequest(page) {
   };
 }
 
-export function loadAllPlansSuccess(allplans) {
+export function loadAllPlansSuccess(allplans, nextPageCount) {
   return {
     type: '@plan/LOAD_ALL_PLANS_SUCCESS',
-    payload: { allplans },
+    payload: { allplans, nextPageCount },
   };
 }
 

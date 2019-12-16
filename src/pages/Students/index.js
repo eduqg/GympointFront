@@ -51,13 +51,13 @@ export default function Students() {
   }
 
   function handleChangePage(newPage) {
-    // Se estiver na primeira página, não pode voltar mais uma página
-    if (newPage > 0 && nextPageCount !== 0) {
+    // Voltar página
+    if (newPage < page && newPage > 0) {
       setPage(newPage);
     }
 
-    // Se estiver na última página e clica no botão de voltar
-    if (nextPageCount === 0 && newPage < page && students.length) {
+    // Avançar página
+    if (newPage > page && nextPageCount !== 0) {
       setPage(newPage);
     }
   }

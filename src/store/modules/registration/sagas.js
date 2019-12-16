@@ -86,11 +86,17 @@ export function* loadRegistrations({ payload }) {
   try {
     let response = [];
     const { page } = payload;
-    console.tron.log('page', payload.page);
+    let nextPageCount = null;
+
     if (page) {
       response = yield api.get('registrations', {
         params: {
           page,
+        },
+      });
+      nextPageCount = yield api.get('registrations', {
+        params: {
+          page: page + 1,
         },
       });
     } else {
@@ -98,7 +104,9 @@ export function* loadRegistrations({ payload }) {
     }
 
     if (response) {
-      yield put(loadAllRegistrationsSuccess(response.data));
+      yield put(
+        loadAllRegistrationsSuccess(response.data, nextPageCount.data.length)
+      );
     }
   } catch (error) {
     if (error.response.status === 400) {

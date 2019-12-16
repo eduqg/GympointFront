@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   plan: null,
   allplans: null,
+  nextPageCount: 0,
 };
 
 export default function plan(state = INITIAL_STATE, action) {
@@ -20,6 +21,7 @@ export default function plan(state = INITIAL_STATE, action) {
 
       case '@plan/LOAD_ALL_PLANS_SUCCESS': {
         draft.allplans = action.payload.allplans;
+        draft.nextPageCount = action.payload.nextPageCount;
         break;
       }
 

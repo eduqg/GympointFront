@@ -55,6 +55,7 @@ export function* updatePlan({ payload }) {
 export function* loadPlans({ payload }) {
   try {
     let response = [];
+    let nextPageCount = null;
     const { page } = payload;
 
     if (page) {
@@ -63,12 +64,17 @@ export function* loadPlans({ payload }) {
           page,
         },
       });
+      nextPageCount = yield api.get('plans', {
+        params: {
+          page: page + 1,
+        },
+      });
     } else {
       response = yield api.get('plans');
     }
 
     if (response) {
-      yield put(loadAllPlansSuccess(response.data));
+      yield put(loadAllPlansSuccess(response.data, nextPageCount.data.length));
     }
   } catch (error) {
     if (error.response.status === 400) {

@@ -13,6 +13,7 @@ import {
 export default function Plans() {
   const dispatch = useDispatch();
   const plans = useSelector(state => state.plan.allplans) || [];
+  const nextPageCount = useSelector(state => state.plan.nextPageCount);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -33,13 +34,13 @@ export default function Plans() {
   }
 
   function handleChangePage(newPage) {
-    // Se estiver na primeira página, não pode voltar mais uma página
-    if (newPage > 0 && plans.length !== 0) {
+    // Voltar página
+    if (newPage < page && newPage > 0) {
       setPage(newPage);
     }
 
-    // Se estiver na última página e clica no botão de voltar
-    if (plans.length === 0 && newPage < page) {
+    // Avançar página
+    if (newPage > page && nextPageCount !== 0) {
       setPage(newPage);
     }
   }
@@ -81,11 +82,11 @@ export default function Plans() {
               ))}
             </tbody>
           </table>
-          {plans.length < 1 && <h2>Fim das matrículas</h2>}
+          {nextPageCount < 1 && <h2>Fim das matrículas</h2>}
         </Items>
 
         <ControlPagination
-          objectLength={plans.length}
+          objectLength={nextPageCount}
           page={page}
           handleChangePage={handleChangePage}
         />

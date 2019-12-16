@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   registration: null,
   allregistrations: null,
+  nextPageCount: 0,
 };
 
 export default function registration(state = INITIAL_STATE, action) {
@@ -20,6 +21,7 @@ export default function registration(state = INITIAL_STATE, action) {
 
       case '@registration/LOAD_ALL_REGISTRATIONS_SUCCESS': {
         draft.allregistrations = action.payload.allregistrations;
+        draft.nextPageCount = action.payload.nextPageCount;
         break;
       }
 
