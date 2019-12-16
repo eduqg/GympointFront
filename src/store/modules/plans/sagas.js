@@ -55,7 +55,7 @@ export function* updatePlan({ payload }) {
 export function* loadPlans({ payload }) {
   try {
     let response = [];
-    let nextPageCount = null;
+    let nextPageCount = 0;
     const { page } = payload;
 
     if (page) {
@@ -64,17 +64,20 @@ export function* loadPlans({ payload }) {
           page,
         },
       });
-      nextPageCount = yield api.get('plans', {
+      const nextPage = yield api.get('plans', {
         params: {
           page: page + 1,
         },
       });
+      nextPageCount = nextPage.data.length;
     } else {
+      console.tron.log('Deve pegar todos os planos');
       response = yield api.get('plans');
+      console.tron.log('e pegou!', response.data);
     }
 
     if (response) {
-      yield put(loadAllPlansSuccess(response.data, nextPageCount.data.length));
+      yield put(loadAllPlansSuccess(response.data, nextPageCount));
     }
   } catch (error) {
     if (error.response.status === 400) {

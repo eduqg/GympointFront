@@ -86,7 +86,7 @@ export function* loadRegistrations({ payload }) {
   try {
     let response = [];
     const { page } = payload;
-    let nextPageCount = null;
+    let nextPageCount = 0;
 
     if (page) {
       response = yield api.get('registrations', {
@@ -94,19 +94,18 @@ export function* loadRegistrations({ payload }) {
           page,
         },
       });
-      nextPageCount = yield api.get('registrations', {
+      const nextPage = yield api.get('registrations', {
         params: {
           page: page + 1,
         },
       });
+      nextPageCount = nextPage.data.length;
     } else {
       response = yield api.get('registrations');
     }
 
     if (response) {
-      yield put(
-        loadAllRegistrationsSuccess(response.data, nextPageCount.data.length)
-      );
+      yield put(loadAllRegistrationsSuccess(response.data, nextPageCount));
     }
   } catch (error) {
     if (error.response.status === 400) {

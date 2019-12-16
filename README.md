@@ -50,6 +50,16 @@ docker run -it -p 8080:80 frontgympoint
 
 Abra o navegador em [localhost:8080](http://localhost:8080).
 
+## Testes
+
+Utilize cypress para os testes da aplicação.
+
+```console
+yarn cypress
+```
+
+Isto irá abrir uma janela, clique em seguida em Run all specs e veja a mágica acontecer.
+
 
 ## Imagens
 

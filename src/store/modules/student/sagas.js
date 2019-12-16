@@ -58,7 +58,7 @@ export function* loadStudents({ payload }) {
   try {
     const { search, page } = payload;
     let response = null;
-    let nextPageCount = null;
+    let nextPageCount = 0;
 
     if (page) {
       response = yield api.get('students', {
@@ -66,11 +66,13 @@ export function* loadStudents({ payload }) {
           page,
         },
       });
-      nextPageCount = yield api.get('students', {
+      const nextPage = yield api.get('students', {
         params: {
           page: page + 1,
         },
       });
+
+      nextPageCount = nextPage.data.length;
     } else if (search) {
       response = yield api.get(`students?q=${payload.search}`);
     } else {
@@ -78,9 +80,7 @@ export function* loadStudents({ payload }) {
     }
 
     if (response) {
-      yield put(
-        loadAllStudentsSuccess(response.data, nextPageCount.data.length)
-      );
+      yield put(loadAllStudentsSuccess(response.data, nextPageCount));
     }
   } catch (error) {
     if (error.response.status === 400) {

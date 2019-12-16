@@ -99,10 +99,16 @@ export default function Students() {
                   <td>{student.email}</td>
                   <td>{student.idade}</td>
                   <td>
-                    <Link to={`students/${student.id}/edit`}>Editar</Link>
+                    <Link
+                      to={`students/${student.id}/edit`}
+                      testid={student.name}
+                    >
+                      Editar
+                    </Link>
                     <button
                       type="button"
                       onClick={() => handleDelete(student.id)}
+                      testid={student.name}
                     >
                       Apagar
                     </button>

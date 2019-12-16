@@ -37,7 +37,7 @@ export default function StudentCreate() {
       <Content>
         <Form schema={schema} onSubmit={handleSubmit}>
           <Nav>
-            <strong>Edição de aluno</strong>
+            <strong>Criar aluno</strong>
             <div>
               <Link to="/students/">
                 <MdChevronLeft size={24} color="#fff" />
