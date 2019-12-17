@@ -1,4 +1,4 @@
-describe('Login form', () => {
+describe('Students CRUD', () => {
   before(() => {
     cy.visit('/');
     cy.get('input#email').type('admin@gympoint.com');

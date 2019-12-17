@@ -73,8 +73,14 @@ export default function Plans() {
                   </td>
                   <td>{plan.price}</td>
                   <td>
-                    <Link to={`/plans/${plan.id}/edit`}>Editar</Link>
-                    <button type="button" onClick={() => handleDelete(plan.id)}>
+                    <Link to={`/plans/${plan.id}/edit`} testid={plan.title}>
+                      Editar
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(plan.id)}
+                      testid={plan.title}
+                    >
                       Apagar
                     </button>
                   </td>

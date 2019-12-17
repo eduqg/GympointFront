@@ -87,12 +87,16 @@ export default function Registrations() {
                   <td>{formatDate(registration.end_date)}</td>
                   <td>{registration.active ? 'Sim' : 'Não'}</td>
                   <td>
-                    <Link to={`registrations/${registration.id}/edit`}>
+                    <Link
+                      to={`registrations/${registration.id}/edit`}
+                      testid={registration.student.name}
+                    >
                       Editar
                     </Link>
                     <button
                       type="button"
                       onClick={() => handleDelete(registration.id)}
+                      testid={registration.student.name}
                     >
                       Apagar
                     </button>

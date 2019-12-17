@@ -129,12 +129,13 @@ export default function RegistrationCreate() {
                   onChange={date => setStartDate(date)}
                   locale={pt}
                   dateFormat="P"
+                  name="start_date"
                 />
               </div>
               <div>
                 <p>Data de Término</p>
                 <DatePicker
-                  name="enddate"
+                  name="end_date"
                   selected={endDate}
                   locale={pt}
                   dateFormat="P"
