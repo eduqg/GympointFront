@@ -2,6 +2,8 @@
 
 ## Desafio Final Rocketseat GoStack ReactJS
 
+<img src="./src/assets/gifs/gympointfron3.gif" width="700" height="413" />
+
 ## Características do software
 
 ### Funcionalidades
@@ -31,10 +33,11 @@
 * Yup para validação de schemas.
 * Unform para criação de formulários.
 
-
-## Como executar com Docker
+## Execução
 
 Clone e execute em um terminal o [backend da aplicação](https://github.com/eduqg/GympointBack).
+
+<!-- ### Com Docker
 
 Em um outro terminal, faça a build do projeto.
 
@@ -48,11 +51,29 @@ Execute o container criado.
 docker run -it -p 8080:80 frontgympoint
 ```
 
-Abra o navegador em [localhost:8080](http://localhost:8080).
+Abra o navegador em [localhost:8080](http://localhost:8080). -->
 
-## Testes
+### Local
 
-Utilize cypress para os testes da aplicação.
+Instale as dependências do projeto.
+
+```console
+yarn
+```
+
+Execute a aplicação.
+
+```console
+yarn start
+```
+
+<!-- Para executar os testes, configure o arquivo cypress.json
+
+```console
+"baseURL": "http://localhost:3000/"
+``` -->
+
+Em outro terminal, execute o cypress.
 
 ```console
 yarn cypress
@@ -60,6 +81,7 @@ yarn cypress
 
 Isto irá abrir uma janela, clique em seguida em Run all specs e veja a mágica acontecer.
 
+<img src="./src/assets/gifs/cypressgympoint3.gif" width="700" height="413" />
 
 ## Imagens
 

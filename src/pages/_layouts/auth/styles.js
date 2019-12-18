@@ -1,8 +1,12 @@
 import styled from 'styled-components';
-import { lighten, darken } from 'polished';
+import { lighten } from 'polished';
 
 export const Wrapper = styled.div`
-  background: linear-gradient(180deg, #df4658, #f84e62);
+  background: linear-gradient(
+    180deg,
+    ${lighten(0.07, '#df4658')},
+    ${lighten(0.05, '#f84e62')}
+  );
   height: 100%;
   display: flex;
   justify-content: center;
@@ -46,7 +50,7 @@ export const Content = styled.div`
     button {
       margin: 10px 0 0;
       height: 44px;
-      background: #df4658;
+      background: ${lighten(0.07, '#df4658')};
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -54,7 +58,7 @@ export const Content = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.02, '#df4658')};
+        background: #df4658;
       }
     }
 
