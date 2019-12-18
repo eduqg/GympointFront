@@ -30,7 +30,7 @@ describe('Registration CRUD', () => {
       .click();
 
     cy.contains('Salvar').click();
-    cy.contains('Matrícula efetuada com sucesso').should('be.visible');
+    cy.contains('Matrícula efetuada com sucesso').should('be.visible', { timeout: 30000 });
     cy.contains('Gerenciar Matrículas').should('be.visible');
   });
 

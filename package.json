@@ -35,7 +35,8 @@
     "test": "react-app-rewired test --watchAll --roots __tests__",
     "coverage": "react-app-rewired test --watchAll=false --roots __tests__ --coverage",
     "eject": "react-scripts eject",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypresscontainer": "cypress run"
   },
   "jest": {
     "testMatch": [
