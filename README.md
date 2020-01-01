@@ -81,7 +81,7 @@ yarn start
 "baseURL": "http://localhost:3000/"
 ``` -->
 
-Em outro terminal, execute o cypress.
+Em outro terminal, execute o cypress para executar os testes. É necessário que tenham sido executadas as seeds no backend para o login na aplicação.
 
 ```console
 yarn cypress
@@ -93,9 +93,9 @@ Isto irá abrir uma janela, clique em seguida em Run all specs e veja a mágica 
 
 ## Docker
 
-Instale a extensão do VSCode [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). 
+Instale a extensão do VSCode [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 
-No VSCode use o atalho CMD/CTRL + Shift + P e selecione a opção Remote-Container: Reopen in Container. 
+No VSCode use o atalho CMD/CTRL + Shift + P e selecione a opção Remote-Container: Reopen in Container.
 
 Isto irá abir uma nova janela do Visual Studio Code e vai demorar alguns minutos para configurar o container.
 
